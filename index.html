@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customizable Countdown Timers</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(120deg, #1a202c, #2d3748, #4a5568);
+            background-size: 200% 200%;
+            animation: gradientShift 6s ease infinite;
+            color: white;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .motivational {
+            font-size: 1.2rem;
+            font-style: italic;
+            margin-bottom: 20px;
+            animation: fadeInOut 5s infinite alternate;
+            color: #f9fafb;
+        }
+
+        @keyframes fadeInOut {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .countdown {
+            padding: 20px;
+            margin: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            text-align: center;
+            font-size: 18px;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            color: white;
+            transition: transform 0.3s, background-color 0.3s, box-shadow 0.3s;
+        }
+
+        .countdown:hover {
+            background: linear-gradient(90deg, #9333ea, #6366f1, #3b82f6);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .countdown div {
+            margin: 5px 0;
+        }
+
+        .countdown span {
+            font-weight: bold;
+            font-size: 24px;
+            background: linear-gradient(90deg, #3b82f6, #6366f1, #9333ea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .settings-panel {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            color: white;
+            z-index: 10;
+        }
+
+        .settings-panel h2 {
+            margin: 0 0 15px;
+            text-align: center;
+        }
+
+        .settings-panel input, .settings-panel select, .settings-panel button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .settings-panel button {
+            background: #3b82f6;
+            color: white;
+            cursor: pointer;
+        }
+
+        .settings-panel button:hover {
+            background: #2563eb;
+        }
+
+        .settings-panel .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .settings-panel .close-btn:hover {
+            color: #f87171;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Countdown Timers</h1>
+<div class="motivational" id="motivationalQuote">Loading motivational quote...</div>
+<div id="countdownContainer">
+    <!-- Timers will be dynamically added here -->
+</div>
+<button onclick="toggleSettings()">Settings</button>
+
+<div class="settings-panel" id="settingsPanel">
+    <button class="close-btn" onclick="toggleSettings()">×</button>
+    <h2>Manage Timers</h2>
+    <label for="timerSelect">Select Timer to Edit/Delete:</label>
+    <select id="timerSelect"></select>
+    <label for="editTitle">Edit Title:</label>
+    <input type="text" id="editTitle" placeholder="New Title">
+    <label for="editDate">Edit Date:</label>
+    <input type="datetime-local" id="editDate">
+    <button onclick="editTimer()">Edit Timer</button>
+    <button onclick="deleteTimer()">Delete Timer</button>
+    <h2>Add New Timer</h2>
+    <label for="newTitle">Title:</label>
+    <input type="text" id="newTitle" placeholder="Timer Title">
+    <label for="newDate">Date:</label>
+    <input type="datetime-local" id="newDate">
+    <button onclick="addTimer()">Add Timer</button>
+</div>
+
+<script>
+    const timers = JSON.parse(localStorage.getItem('timers')) || [];
+    const motivationalQuotes = [
+        "Push yourself because no one else is going to do it for you.",
+        "Dream big and dare to fail.",
+        "Success doesn’t come to you, you go to it.",
+        "Great things never come from comfort zones.",
+        "The secret of success is to do the common things uncommonly well."
+    ];
+
+    const countdownContainer = document.getElementById('countdownContainer');
+    const motivationalQuoteEl = document.getElementById('motivationalQuote');
+    const settingsPanel = document.getElementById('settingsPanel');
+    const timerSelect = document.getElementById('timerSelect');
+
+    function updateMotivationalQuote() {
+        const randomQuote = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
+        motivationalQuoteEl.textContent = randomQuote;
+    }
+
+    function renderTimers() {
+        countdownContainer.innerHTML = '';
+        timerSelect.innerHTML = '';
+        timers.forEach((timer, index) => {
+            const timerEl = document.createElement('div');
+            timerEl.className = 'countdown';
+            timerEl.innerHTML = `<div>${timer.title}</div><div id="display${index}"><span>Loading...</span></div>`;
+            countdownContainer.appendChild(timerEl);
+
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = timer.title;
+            timerSelect.appendChild(option);
+
+            startCountdown(timer.date, `display${index}`);
+        });
+        localStorage.setItem('timers', JSON.stringify(timers));
+    }
+
+    function startCountdown(date, displayId) {
+        const display = document.getElementById(displayId);
+        const targetDate = new Date(date).getTime();
+
+        setInterval(() => {
+            const now = Date.now();
+            const timeLeft = targetDate - now;
+
+            if (timeLeft <= 0) {
+                display.innerHTML = "<span>Time's up!</span>";
+                return;
+            }
+
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            display.innerHTML = `<span>${days}d ${hours}h ${minutes}m ${seconds}s</span>`;
+        }, 1000);
+    }
+
+    function toggleSettings() {
+        settingsPanel.style.display = settingsPanel.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    function addTimer() {
+        const title = document.getElementById('newTitle').value;
+        const date = document.getElementById('newDate').value;
+        if (title && date) {
+            timers.push({ title, date });
+            renderTimers();
+            toggleSettings();
+        }
+    }
+
+    function editTimer() {
+        const index = timerSelect.value;
+        const title = document.getElementById('editTitle').value;
+        const date = document.getElementById('editDate').value;
+
+        if (title) timers[index].title = title;
+        if (date) timers[index].date = date;
+
+        renderTimers();
+        toggleSettings();
+    }
+
+    function deleteTimer() {
+        const index = timerSelect.value;
+        timers.splice(index, 1);
+        renderTimers();
+        toggleSettings();
+    }
+
+    updateMotivationalQuote();
+    setInterval(updateMotivationalQuote, 5000);
+    renderTimers();
+</script>
+
+</body>
+</html>
