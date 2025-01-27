@@ -1,3 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Countdown Timer</title>
+    <style>
+        :root {
+            --primary: #2ecc71;
+            --secondary: #3498db;
+            --background: #2c3e50;
+        }
 
-<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" href="/_next/static/media/2ff41235783e9f59-s.p.woff2" as="font" crossorigin="" type="font/woff2"/><link rel="preload" as="image" href="/images/logo.png"/><link rel="stylesheet" href="/_next/static/css/app/layout.css?v=1733082647198" data-precedence="next_static/css/app/layout.css"/><link rel="stylesheet" href="/_next/static/css/app/(landing)/page.css?v=1733082647198" data-precedence="next_static/css/app/(landing)/page.css"/><link rel="preload" as="script" fetchPriority="low" href="/_next/static/chunks/webpack.js?v=1733082647198"/><script src="/_next/static/chunks/main-app.js?v=1733082647198" async=""></script><script src="/_next/static/chunks/app-pages-internals.js" async=""></script><script src="/_next/static/chunks/app/layout.js" async=""></script><script src="/_next/static/chunks/app/loading.js" async=""></script><script src="/_next/static/chunks/app/error.js" async=""></script><script src="/_next/static/chunks/app/not-found.js" async=""></script><title>ভূমি তথ্য বাতায়ন</title><meta name="description" content="ভূমি তথ্য বাতায়ন"/><link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="300x300"/><meta name="next-size-adjust"/><script src="/_next/static/chunks/polyfills.js" noModule=""></script></head><body class="__className_850483"><div class="bg-bottleGreen lg:hidden"><p class="text-white text-14 font-medium text-center">সোমবার<!-- --> <!-- -->১৭ অগ্রহায়ন ১৪৩১<!-- --> <!-- -->২ ডিসেম্বর ২০২৪</p></div><nav class="px-3 lg:px-0 bg-[#FFFFFF] shadow-xl sticky w-full z-50 top-0"><div class="lg:container lg:mx-auto px-2 lg:px-[45px] flex justify-between items-center pb-2 lg:pb-0"><a class="py-2" href="/"><img src="/images/logo.png" class="w-[85px] h-[23px] lg:w-[170px] lg:h-[45px]" alt="images"/></a><div class="flex justify-end items-end space-x-5 grow"><div class="w-full hidden lg:block"><div class="flex justify-center items-center space-x-7 bg-gradient-to-l from-white to-white via-bottleGreen py-1"><div class="lg:flex items-center gap-4 hidden"><p class="text-white text-14 font-medium ">সোমবার,<!-- --> <!-- -->১৭ অগ্রহায়ন ১৪৩১<!-- -->, <!-- -->২ ডিসেম্বর ২০২৪</p><span class="text-16 font-semibold text-red-700 float-right absolute right-10 animate-pulse">পরীক্ষামূলক সংস্করণ</span><button title="Change Language"><span class="border border-bottleGreen px-2 bg-bottleGreen px-2 text-slate-50">বাং</span><span class="border border-bottleGreen px-2 bg-white text-bottleGreen">EN</span></button></div></div><div class="hidden lg:flex justify-end py-1 gap-2"><svg class="w-4 h-4 fill-primary animate-spin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M304 48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zm0 416a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM48 304a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm464-48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM142.9 437A48 48 0 1 0 75 369.1 48 48 0 1 0 142.9 437zm0-294.2A48 48 0 1 0 75 75a48 48 0 1 0 67.9 67.9zM369.1 437A48 48 0 1 0 437 369.1 48 48 0 1 0 369.1 437z"></path></svg></div></div><button class="lg:hidden" title="Change Language"><span class="border border-bottleGreen px-2 bg-bottleGreen px-2 text-slate-50">বাং</span><span class="border border-bottleGreen px-2 bg-white text-bottleGreen">EN</span></button><div class="hidden lg:block"><div><button class="bg-bottleGreen text-white px-4 rounded-full flex items-center gap-1 text-12 lg:text-16 mb-2"><span class="text-center">লগইন</span><span><svg class="w-3 h-3 lg:w-4 lg:h-4 fill-current transition-all duration-300 stroke-[4px] " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"></path></svg></span></button></div></div></div></div><div class="px-2 pb-1 flex justify-between lg:hidden gap-2"><button class="outline-none mobile-menu-button text-2xl text-primary font-bold"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="bars" class="svg-inline--fa fa-bars " role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.3 14.3 64 32 64l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 128C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32l384 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 288c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32L32 448c-17.7 0-32-14.3-32-32s14.3-32 32-32l384 0c17.7 0 32 14.3 32 32z"></path></svg></button><div><button class="bg-bottleGreen text-white px-4 rounded-full flex items-center gap-1 text-12 lg:text-16 mb-2"><span class="text-center">লগইন</span><span><svg class="w-3 h-3 lg:w-4 lg:h-4 fill-current transition-all duration-300 stroke-[4px] " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M201.4 374.6c12.5 12.5 32.8 12.5 45.3 0l160-160c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L224 306.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l160 160z"></path></svg></span></button></div></div><div class="lg:hidden mobile-menu z-50 absolute bg-white w-[94vw] border border-t-0 border-gray-500 shadow-lg shadow-green-100 rounded-b-md hidden"><svg class="w-4 h-4 fill-primary animate-spin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M304 48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zm0 416a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM48 304a48 48 0 1 0 0-96 48 48 0 1 0 0 96zm464-48a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zM142.9 437A48 48 0 1 0 75 369.1 48 48 0 1 0 142.9 437zm0-294.2A48 48 0 1 0 75 75a48 48 0 1 0 67.9 67.9zM369.1 437A48 48 0 1 0 437 369.1 48 48 0 1 0 369.1 437z"></path></svg></div></nav><!--$?--><template id="B:0"></template><section class="bg-white w-full min-h-[60vh] lg:min-h-screen flex justify-center items-center"><img alt="loading" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" class="w-8 h-8 lg:w-16 lg:h-16" style="color:transparent" srcSet="/_next/image?url=%2Fimages%2Fgreen_loading.gif&amp;w=1080&amp;q=75 1x, /_next/image?url=%2Fimages%2Fgreen_loading.gif&amp;w=2048&amp;q=75 2x" src="/_next/image?url=%2Fimages%2Fgreen_loading.gif&amp;w=2048&amp;q=75"/></section><!--/$--><div class="2xl:container 2xl:mx-auto"><div class="h-[28px] w-full bg-gradient-to-r from-white to-white via-bottleGreen mb-7"></div><div class="bg-[#E4FFE2]"><div class="lg:container lg:mx-auto lg:px-[45px] flex flex-col lg:flex-row space-y-7 lg:space-y-0 justify-center lg:justify-normal pt-12 px-5"><div class="flex justify-around lg:justify-normal gap-10 lg:w-[30%]"><div class="lg:flex lg:flex-col lg:space-y-2"><h3 class="text-14 lg:text-20 font-medium text-bottleGreen pb-2 lg:pb-0 text-start lg:text-center">গুরুত্বপূর্ণ লিঙ্ক</h3><ul class="lg:flex lg:flex-col lg:space-y-2"><li class="flex items-center"><img alt="LSG" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" class="w-6 h-6" style="color:transparent" src="/images/triangleright.svg"/><a target="_blank" class="text-12 lg:text-14 font-medium" href="https://bangladesh.gov.bd/index.php">বাংলাদেশ জাতীয় তথ্য বাতায়ন</a></li><li class="flex items-center"><img alt="LSG" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" class="w-6 h-6" style="color:transparent" src="/images/triangleright.svg"/><a target="_blank" class="text-12 lg:text-14 font-medium" href="https://minland.gov.bd/">ভূমি মন্ত্রণালয়</a></li><li class="flex items-center"><img alt="LSG" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" class="w-6 h-6" style="color:transparent" src="/images/triangleright.svg"/><a target="_blank" class="text-12 lg:text-14 font-medium" href="http://www.pressinform.gov.bd/">তথ্য অধিদপ্তর (পিআইডি)</a></li><li class="flex items-center"><img alt="LSG" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" class="w-6 h-6" style="color:transparent" src="/images/triangleright.svg"/><a target="_blank" class="text-12 lg:text-14 font-medium" href="https://www.grs.gov.bd/">অভিযোগ প্রতিকার ব্যবস্থা</a></li></ul></div><div class="pt-8 lg:pt-10"><ul class="lg:flex lg:flex-col lg:space-y-2"><li class="flex items-center"><img alt="LSG" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" class="w-6 h-6" style="color:transparent" src="/images/triangleright.svg"/><a class="text-12 lg:text-14 font-medium" href="/nitimala">গোপনীয়তা নীতি</a></li><li class="flex items-center"><img alt="LSG" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" class="w-6 h-6" style="color:transparent" src="/images/triangleright.svg"/><a class="text-12 lg:text-14 font-medium" href="/faq">সাধারণ জিজ্ঞাসা</a></li><li class="flex items-center"><img alt="LSG" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" class="w-6 h-6" style="color:transparent" src="/images/triangleright.svg"/><a class="text-12 lg:text-14 font-medium" href="/contact">যোগাযোগ</a></li></ul></div></div><div class="flex flex-col space-y-6 lg:space-y-0 lg:w-[70%]"><div class="flex flex-col lg:flex-row justify-center lg:justify-between gap-4 lg:gap-0"><div class="flex flex-col items-center lg:ml-[4.5em]"><h3 class="text-14 lg:text-18">পরিকল্পনা ও বাস্তবায়নে</h3><div class="w-[10em] lg:w-[12.5em] p-1 rounded-sm flex flex-col items-center"><a class="" target="_blank" href="https://lmap.minland.gov.bd/"><img alt="images" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" class="lg:w-[144px] lg:h-[44px]" style="color:transparent" srcSet="/_next/image?url=%2Fimages%2Fgovt_logo.png&amp;w=1080&amp;q=75 1x, /_next/image?url=%2Fimages%2Fgovt_logo.png&amp;w=2048&amp;q=75 2x" src="/_next/image?url=%2Fimages%2Fgovt_logo.png&amp;w=2048&amp;q=75"/></a></div></div><div class="flex justify-between lg:gap-[3.3rem]"><div class="flex flex-col items-center gap-1"><h3 class="text-14 lg:text-18">অ্যাপ ডাউনলোড করুন</h3><div class="flex items-center gap-2"><a href="#" target="_blank"><img alt="Play Store Image" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" class="w-28 lg:w-32" style="color:transparent" srcSet="/_next/image?url=%2Fimages%2Fplay_store.png&amp;w=1080&amp;q=75 1x, /_next/image?url=%2Fimages%2Fplay_store.png&amp;w=2048&amp;q=75 2x" src="/_next/image?url=%2Fimages%2Fplay_store.png&amp;w=2048&amp;q=75"/></a><a href="#" target="_blank"><img alt="Play Store Image" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" class="w-28 lg:w-32 h-[2rem] lg:h-[2.4rem]" style="color:transparent" srcSet="/_next/image?url=%2Fimages%2Fios_store.png&amp;w=1080&amp;q=75 1x, /_next/image?url=%2Fimages%2Fios_store.png&amp;w=2048&amp;q=75 2x" src="/_next/image?url=%2Fimages%2Fios_store.png&amp;w=2048&amp;q=75"/></a></div></div><div class="flex flex-col space-y-3 lg:items-end "><h3 class="text-15 lg:text-18 text-semiblack  text-center lg:text-right">সামাজিক যোগাযোগ</h3><div class="flex justify-center lg:justify-normal space-x-3 lg:space-x-5 pl-2 lg:pl-0"><a target="_blank" href="https://www.facebook.com/MinlandGovBd"><img alt="images" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" class="w-[18px] h-[18px] lg:w-[34px] lg:h-[30px]" style="color:transparent" src="/images/Facebook.svg"/></a><a target="_blank" href="https://twitter.com/"><img alt="images" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" class="w-[18px] h-[18px] lg:w-[34px] lg:h-[30px]" style="color:transparent" srcSet="/_next/image?url=%2Fimages%2Ftwitter.png&amp;w=1080&amp;q=75 1x, /_next/image?url=%2Fimages%2Ftwitter.png&amp;w=2048&amp;q=75 2x" src="/_next/image?url=%2Fimages%2Ftwitter.png&amp;w=2048&amp;q=75"/></a><a target="_blank" href="https://www.instagram.com/"><img alt="images" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" class="w-[18px] h-[18px] lg:w-[34px] lg:h-[30px]" style="color:transparent" src="/images/instagram.svg"/></a><a target="_blank" href="https://www.youtube.com/@minland-gov-bd/videos"><img alt="images" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" class="w-[18px] h-[18px] lg:w-[34px] lg:h-[34px]" style="color:transparent" src="/images/Youtube.svg"/></a></div></div></div></div><div class="flex flex-col space-y-2 lg:space-y-3 bg-slate-50 lg:bg-transparent"><h3 class="text-center lg:text-right text-14 lg:text-18">কারিগরি সহায়তায়</h3><div class="flex justify-end items-center space-x-2 bg-cover w-full" style="background-image:url(&#x27;/images/logo_back.png&#x27;)"><div class="w-[21%] flex items-center justify-center mr-3"><a target="_blank" href="https://mysoftheaven.com/"><img alt="images" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" style="color:transparent" srcSet="/_next/image?url=%2Fimages%2Fmysoft_heaven_logo.jpg&amp;w=1080&amp;q=75 1x, /_next/image?url=%2Fimages%2Fmysoft_heaven_logo.jpg&amp;w=2048&amp;q=75 2x" src="/_next/image?url=%2Fimages%2Fmysoft_heaven_logo.jpg&amp;w=2048&amp;q=75"/></a></div><div class="h-[21px] border-l border-bottletext-bottleGreen"></div><div class="w-[21%] flex items-center justify-center"><a class="w-[60%]" target="_blank" href="https://www.ba-systems.com/"><img alt="images" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" class="w-full h-full" style="color:transparent" srcSet="/_next/image?url=%2Fimages%2Flogo-ba.webp&amp;w=1080&amp;q=75 1x, /_next/image?url=%2Fimages%2Flogo-ba.webp&amp;w=2048&amp;q=75 2x" src="/_next/image?url=%2Fimages%2Flogo-ba.webp&amp;w=2048&amp;q=75"/></a></div><div class="h-[21px] border-l border-bottletext-bottleGreen"></div><div class="w-[21%] flex items-center justify-center"><a class="w-[60%]" target="_blank" href="https://www.olivineltd.com/"><img alt="images" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" class="w-[80%]" style="color:transparent" srcSet="/_next/image?url=%2Fimages%2Folvin_logo.jpg&amp;w=1080&amp;q=75 1x, /_next/image?url=%2Fimages%2Folvin_logo.jpg&amp;w=2048&amp;q=75 2x" src="/_next/image?url=%2Fimages%2Folvin_logo.jpg&amp;w=2048&amp;q=75"/></a></div><div class="h-[21px] border-l border-bottletext-bottleGreen"></div><div class="w-[21%] ml-2 flex items-center justify-center"><a class="w-[60%]" target="_blank" href="https://parkwaytec.com/"><img alt="images" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" class="w-full h-full" style="color:transparent" srcSet="/_next/image?url=%2Fimages%2Fparkway_logo.png&amp;w=1080&amp;q=75 1x, /_next/image?url=%2Fimages%2Fparkway_logo.png&amp;w=2048&amp;q=75 2x" src="/_next/image?url=%2Fimages%2Fparkway_logo.png&amp;w=2048&amp;q=75"/></a></div></div></div></div></div></div><p class="text-center font-medium text-12 leading-[31px] py-4">কপিরাইট <!-- -->©<!-- -->২০২৪<!-- --> সর্বস্বত্ব সংরক্ষিত। ভূমি ব্যবস্থাপনা অটোমেশন প্রকল্প ,<a href="https://land.gov.bd" class="hover:underline">ভূমি মন্ত্রণালয়।</a></p></div><script src="/_next/static/chunks/webpack.js?v=1733082647198" async=""></script><div hidden id="S:0"><template id="P:1"></template></div><script>(self.__next_f=self.__next_f||[]).push([0]);self.__next_f.push([2,null])</script><script>self.__next_f.push([1,"1:HL[\"/_next/static/media/2ff41235783e9f59-s.p.woff2\",\"font\",{\"crossOrigin\":\"\",\"type\":\"font/woff2\"}]\n2:HL[\"/_next/static/css/app/layout.css?v=1733082647198\",\"style\"]\n0:\"$L3\"\n"])</script><script>self.__next_f.push([1,"4:HL[\"/_next/static/css/app/(landing)/page.css?v=1733082647198\",\"style\"]\n"])</script><script>self.__next_f.push([1,"5:I[\"(app-pages-browser)/./node_modules/next/dist/client/components/app-router.js\",[\"app-pages-internals\",\"static/chunks/app-pages-internals.js\"],\"\"]\n7:I[\"(app-pages-browser)/./node_modules/next/dist/client/components/error-boundary.js\",[\"app-pages-internals\",\"static/chunks/app-pages-internals.js\"],\"\"]\n8:I[\"(app-pages-browser)/./app/components/Navbar.jsx\",[\"app/layout\",\"static/chunks/app/layout.js\"],\"\"]\n9:I[\"(app-pages-browser)/./node_modules/next/dist/client/components/layout-router.js\",[\"app-pages-interna"])</script><script>self.__next_f.push([1,"ls\",\"static/chunks/app-pages-internals.js\"],\"\"]\na:I[\"(app-pages-browser)/./app/loading.jsx\",[\"app/loading\",\"static/chunks/app/loading.js\"],\"\"]\nb:I[\"(app-pages-browser)/./app/error.jsx\",[\"app/error\",\"static/chunks/app/error.js\"],\"\"]\nc:I[\"(app-pages-browser)/./node_modules/next/dist/client/components/render-from-template-context.js\",[\"app-pages-internals\",\"static/chunks/app-pages-internals.js\"],\"\"]\nd:I[\"(app-pages-browser)/./app/not-found.jsx\",[\"app/not-found\",\"static/chunks/app/not-found.js\"],\"\"]\n10:I[\"(app-"])</script><script>self.__next_f.push([1,"pages-browser)/./node_modules/next/dist/client/image-component.js\",[\"app/layout\",\"static/chunks/app/layout.js\"],\"Image\"]\n11:I[\"(app-pages-browser)/./node_modules/next/dist/client/link.js\",[\"app/layout\",\"static/chunks/app/layout.js\"],\"\"]\n"])</script><script>self.__next_f.push([1,"3:[[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/app/layout.css?v=1733082647198\",\"precedence\":\"next_static/css/app/layout.css\",\"crossOrigin\":\"$undefined\"}]],[\"$\",\"$L5\",null,{\"buildId\":\"development\",\"assetPrefix\":\"\",\"initialCanonicalUrl\":\"/\",\"initialTree\":[\"\",{\"children\":[\"(landing)\",{\"children\":[\"__PAGE__\",{}]}]},\"$undefined\",\"$undefined\",true],\"initialHead\":[false,\"$L6\"],\"globalErrorComponent\":\"$7\",\"children\":[null,[\"$\",\"html\",null,{\"lang\":\"en\",\"children\":[\"$\",\"body\",null,{\"className\":\"__className_850483\",\"children\":[[\"$\",\"$L8\",null,{}],[\"$\",\"$L9\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\"],\"loading\":[\"$\",\"$La\",null,{}],\"loadingStyles\":[],\"hasLoading\":true,\"error\":\"$b\",\"errorStyles\":[],\"template\":[\"$\",\"$Lc\",null,{}],\"templateStyles\":\"$undefined\",\"notFound\":[\"$\",\"$Ld\",null,{}],\"notFoundStyles\":[],\"childProp\":{\"current\":[\"$\",\"$L9\",null,{\"parallelRouterKey\":\"children\",\"segmentPath\":[\"children\",\"(landing)\",\"children\"],\"loading\":\"$undefined\",\"loadingStyles\":\"$undefined\",\"hasLoading\":false,\"error\":\"$undefined\",\"errorStyles\":\"$undefined\",\"template\":[\"$\",\"$Lc\",null,{}],\"templateStyles\":\"$undefined\",\"notFound\":\"$undefined\",\"notFoundStyles\":\"$undefined\",\"childProp\":{\"current\":[\"$Le\",\"$Lf\",null],\"segment\":\"__PAGE__\"},\"styles\":[[\"$\",\"link\",\"0\",{\"rel\":\"stylesheet\",\"href\":\"/_next/static/css/app/(landing)/page.css?v=1733082647198\",\"precedence\":\"next_static/css/app/(landing)/page.css\",\"crossOrigin\":\"$undefined\"}]]}],\"segment\":\"(landing)\"},\"styles\":[]}],[\"$\",\"div\",null,{\"className\":\"2xl:container 2xl:mx-auto\",\"children\":[[\"$\",\"div\",null,{\"className\":\"h-[28px] w-full bg-gradient-to-r from-white to-white via-bottleGreen mb-7\"}],[\"$\",\"div\",null,{\"className\":\"bg-[#E4FFE2]\",\"children\":[\"$\",\"div\",null,{\"className\":\"lg:container lg:mx-auto lg:px-[45px] flex flex-col lg:flex-row space-y-7 lg:space-y-0 justify-center lg:justify-normal pt-12 px-5\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex justify-around lg:justify-normal gap-10 lg:w-[30%]\",\"children\":[[\"$\",\"div\",null,{\"className\":\"lg:flex lg:flex-col lg:space-y-2\",\"children\":[[\"$\",\"h3\",null,{\"className\":\"text-14 lg:text-20 font-medium text-bottleGreen pb-2 lg:pb-0 text-start lg:text-center\",\"children\":\"গুরুত্বপূর্ণ লিঙ্ক\"}],[\"$\",\"ul\",null,{\"className\":\"lg:flex lg:flex-col lg:space-y-2\",\"children\":[[\"$\",\"li\",null,{\"className\":\"flex items-center\",\"children\":[[\"$\",\"$L10\",null,{\"src\":\"/images/triangleright.svg\",\"className\":\"w-6 h-6\",\"width\":1000,\"height\":1000,\"alt\":\"LSG\"}],[\"$\",\"$L11\",null,{\"href\":\"https://bangladesh.gov.bd/index.php\",\"target\":\"_blank\",\"className\":\"text-12 lg:text-14 font-medium\",\"children\":\"বাংলাদেশ জাতীয় তথ্য বাতায়ন\"}]]}],[\"$\",\"li\",null,{\"className\":\"flex items-center\",\"children\":[[\"$\",\"$L10\",null,{\"src\":\"/images/triangleright.svg\",\"className\":\"w-6 h-6\",\"width\":1000,\"height\":1000,\"alt\":\"LSG\"}],[\"$\",\"$L11\",null,{\"href\":\"https://minland.gov.bd/\",\"target\":\"_blank\",\"className\":\"text-12 lg:text-14 font-medium\",\"children\":\"ভূমি মন্ত্রণালয়\"}]]}],[\"$\",\"li\",null,{\"className\":\"flex items-center\",\"children\":[[\"$\",\"$L10\",null,{\"src\":\"/images/triangleright.svg\",\"className\":\"w-6 h-6\",\"width\":1000,\"height\":1000,\"alt\":\"LSG\"}],[\"$\",\"$L11\",null,{\"href\":\"http://www.pressinform.gov.bd/\",\"target\":\"_blank\",\"className\":\"text-12 lg:text-14 font-medium\",\"children\":\"তথ্য অধিদপ্তর (পিআইডি)\"}]]}],[\"$\",\"li\",null,{\"className\":\"flex items-center\",\"children\":[[\"$\",\"$L10\",null,{\"src\":\"/images/triangleright.svg\",\"className\":\"w-6 h-6\",\"width\":1000,\"height\":1000,\"alt\":\"LSG\"}],[\"$\",\"$L11\",null,{\"href\":\"https://www.grs.gov.bd/\",\"target\":\"_blank\",\"className\":\"text-12 lg:text-14 font-medium\",\"children\":\"অভিযোগ প্রতিকার ব্যবস্থা\"}]]}]]}]]}],[\"$\",\"div\",null,{\"className\":\"pt-8 lg:pt-10\",\"children\":[\"$\",\"ul\",null,{\"className\":\"lg:flex lg:flex-col lg:space-y-2\",\"children\":[[\"$\",\"li\",null,{\"className\":\"flex items-center\",\"children\":[[\"$\",\"$L10\",null,{\"src\":\"/images/triangleright.svg\",\"className\":\"w-6 h-6\",\"width\":1000,\"height\":1000,\"alt\":\"LSG\"}],[\"$\",\"$L11\",null,{\"href\":\"/nitimala\",\"className\":\"text-12 lg:text-14 font-medium\",\"children\":\"গোপনীয়তা নীতি\"}]]}],[\"$\",\"li\",null,{\"className\":\"flex items-center\",\"children\":[[\"$\",\"$L10\",null,{\"src\":\"/images/triangleright.svg\",\"className\":\"w-6 h-6\",\"width\":1000,\"height\":1000,\"alt\":\"LSG\"}],[\"$\",\"$L11\",null,{\"href\":{\"pathname\":\"/faq\"},\"shallow\":true,\"className\":\"text-12 lg:text-14 font-medium\",\"children\":\"সাধারণ জিজ্ঞাসা\"}]]}],[\"$\",\"li\",null,{\"className\":\"flex items-center\",\"children\":[[\"$\",\"$L10\",null,{\"src\":\"/images/triangleright.svg\",\"className\":\"w-6 h-6\",\"width\":1000,\"height\":1000,\"alt\":\"LSG\"}],[\"$\",\"$L11\",null,{\"href\":\"/contact\",\"className\":\"text-12 lg:text-14 font-medium\",\"children\":\"যোগাযোগ\"}]]}]]}]}]]}],[\"$\",\"div\",null,{\"className\":\"flex flex-col space-y-6 lg:space-y-0 lg:w-[70%]\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex flex-col lg:flex-row justify-center lg:justify-between gap-4 lg:gap-0\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex flex-col items-center lg:ml-[4.5em]\",\"children\":[[\"$\",\"h3\",null,{\"className\":\"text-14 lg:text-18\",\"children\":\"পরিকল্পনা ও বাস্তবায়নে\"}],[\"$\",\"div\",null,{\"className\":\"w-[10em] lg:w-[12.5em] p-1 rounded-sm flex flex-col items-center\",\"children\":[\"$\",\"$L11\",null,{\"className\":\"\",\"href\":\"https://lmap.minland.gov.bd/\",\"target\":\"_blank\",\"children\":[\"$\",\"$L10\",null,{\"src\":\"/images/govt_logo.png\",\"className\":\"lg:w-[144px] lg:h-[44px]\",\"height\":1000,\"width\":1000,\"alt\":\"images\"}]}]}]]}],[\"$\",\"div\",null,{\"className\":\"flex justify-between lg:gap-[3.3rem]\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex flex-col items-center gap-1\",\"children\":[[\"$\",\"h3\",null,{\"className\":\"text-14 lg:text-18\",\"children\":\"অ্যাপ ডাউনলোড করুন\"}],[\"$\",\"div\",null,{\"className\":\"flex items-center gap-2\",\"children\":[[\"$\",\"a\",null,{\"href\":\"#\",\"target\":\"_blank\",\"children\":[\"$\",\"$L10\",null,{\"className\":\"w-28 lg:w-32\",\"src\":\"/images/play_store.png\",\"width\":1000,\"height\":1000,\"alt\":\"Play Store Image\"}]}],[\"$\",\"a\",null,{\"href\":\"#\",\"target\":\"_blank\",\"children\":[\"$\",\"$L10\",null,{\"className\":\"w-28 lg:w-32 h-[2rem] lg:h-[2.4rem]\",\"src\":\"/images/ios_store.png\",\"width\":1000,\"height\":1000,\"alt\":\"Play Store Image\"}]}]]}]]}],[\"$\",\"div\",null,{\"className\":\"flex flex-col space-y-3 lg:items-end \",\"children\":[[\"$\",\"h3\",null,{\"className\":\"text-15 lg:text-18 text-semiblack  text-center lg:text-right\",\"children\":\"সামাজিক যোগাযোগ\"}],[\"$\",\"div\",null,{\"className\":\"flex justify-center lg:justify-normal space-x-3 lg:space-x-5 pl-2 lg:pl-0\",\"children\":[[\"$\",\"$L11\",null,{\"href\":\"https://www.facebook.com/MinlandGovBd\",\"target\":\"_blank\",\"children\":[\"$\",\"$L10\",null,{\"className\":\"w-[18px] h-[18px] lg:w-[34px] lg:h-[30px]\",\"src\":\"/images/Facebook.svg\",\"height\":1000,\"width\":1000,\"alt\":\"images\"}]}],[\"$\",\"$L11\",null,{\"href\":\"https://twitter.com/\",\"target\":\"_blank\",\"children\":[\"$\",\"$L10\",null,{\"className\":\"w-[18px] h-[18px] lg:w-[34px] lg:h-[30px]\",\"src\":\"/images/twitter.png\",\"height\":1000,\"width\":1000,\"alt\":\"images\"}]}],[\"$\",\"$L11\",null,{\"href\":\"https://www.instagram.com/\",\"target\":\"_blank\",\"children\":[\"$\",\"$L10\",null,{\"src\":\"/images/instagram.svg\",\"height\":1000,\"width\":1000,\"alt\":\"images\",\"className\":\"w-[18px] h-[18px] lg:w-[34px] lg:h-[30px]\"}]}],[\"$\",\"$L11\",null,{\"href\":\"https://www.youtube.com/@minland-gov-bd/videos\",\"target\":\"_blank\",\"children\":[\"$\",\"$L10\",null,{\"src\":\"/images/Youtube.svg\",\"height\":1000,\"width\":1000,\"alt\":\"images\",\"className\":\"w-[18px] h-[18px] lg:w-[34px] lg:h-[34px]\"}]}]]}]]}]]}]]}],[\"$\",\"div\",null,{\"className\":\"flex flex-col space-y-2 lg:space-y-3 bg-slate-50 lg:bg-transparent\",\"children\":[[\"$\",\"h3\",null,{\"className\":\"text-center lg:text-right text-14 lg:text-18\",\"children\":\"কারিগরি সহায়তায়\"}],[\"$\",\"div\",null,{\"className\":\"flex justify-end items-center space-x-2 bg-cover w-full\",\"style\":{\"backgroundImage\":\"url('/images/logo_back.png')\"},\"children\":[[\"$\",\"div\",null,{\"className\":\"w-[21%] flex items-center justify-center mr-3\",\"children\":[\"$\",\"$L11\",null,{\"href\":\"https://mysoftheaven.com/\",\"target\":\"_blank\",\"children\":[\"$\",\"$L10\",null,{\"src\":\"/images/mysoft_heaven_logo.jpg\",\"height\":1000,\"width\":1000,\"alt\":\"images\"}]}]}],[\"$\",\"div\",null,{\"className\":\"h-[21px] border-l border-bottletext-bottleGreen\"}],[\"$\",\"div\",null,{\"className\":\"w-[21%] flex items-center justify-center\",\"children\":[\"$\",\"$L11\",null,{\"href\":\"https://www.ba-systems.com/\",\"className\":\"w-[60%]\",\"target\":\"_blank\",\"children\":[\"$\",\"$L10\",null,{\"src\":\"/images/logo-ba.webp\",\"height\":1000,\"width\":1000,\"alt\":\"images\",\"className\":\"w-full h-full\"}]}]}],[\"$\",\"div\",null,{\"className\":\"h-[21px] border-l border-bottletext-bottleGreen\"}],[\"$\",\"div\",null,{\"className\":\"w-[21%] flex items-center justify-center\",\"children\":[\"$\",\"$L11\",null,{\"href\":\"https://www.olivineltd.com/\",\"className\":\"w-[60%]\",\"target\":\"_blank\",\"children\":[\"$\",\"$L10\",null,{\"src\":\"/images/olvin_logo.jpg\",\"height\":1000,\"width\":1000,\"alt\":\"images\",\"className\":\"w-[80%]\"}]}]}],[\"$\",\"div\",null,{\"className\":\"h-[21px] border-l border-bottletext-bottleGreen\"}],[\"$\",\"div\",null,{\"className\":\"w-[21%] ml-2 flex items-center justify-center\",\"children\":[\"$\",\"$L11\",null,{\"href\":\"https://parkwaytec.com/\",\"className\":\"w-[60%]\",\"target\":\"_blank\",\"children\":[\"$\",\"$L10\",null,{\"src\":\"/images/parkway_logo.png\",\"height\":1000,\"width\":1000,\"alt\":\"images\",\"className\":\"w-full h-full\"}]}]}]]}]]}]]}]]}]}],[\"$\",\"p\",null,{\"className\":\"text-center font-medium text-12 leading-[31px] py-4\",\"children\":[\"কপিরাইট \",\"©\",\"২০২৪\",\" সর্বস্বত্ব সংরক্ষিত। ভূমি ব্যবস্থাপনা অটোমেশন প্রকল্প ,\",[\"$\",\"a\",null,{\"href\":\"https://land.gov.bd\",\"className\":\"hover:underline\",\"children\":\"ভূমি মন্ত্রণালয়।\"}]]}]]}]]}]}],null]}]]\n"])</script><script>self.__next_f.push([1,"6:[[\"$\",\"meta\",\"0\",{\"charSet\":\"utf-8\"}],[\"$\",\"title\",\"1\",{\"children\":\"ভূমি তথ্য বাতায়ন\"}],[\"$\",\"meta\",\"2\",{\"name\":\"description\",\"content\":\"ভূমি তথ্য বাতায়ন\"}],[\"$\",\"meta\",\"3\",{\"name\":\"viewport\",\"content\":\"width=device-width, initial-scale=1\"}],[\"$\",\"link\",\"4\",{\"rel\":\"icon\",\"href\":\"/favicon.ico\",\"type\":\"image/x-icon\",\"sizes\":\"300x300\"}],[\"$\",\"meta\",\"5\",{\"name\":\"next-size-adjust\"}]]\ne:null\n"])</script><script>self.__next_f.push([1,"12:\"$Sreact.suspense\"\n13:I[\"(app-pages-browser)/./app/components/Carousel/Slider.jsx\",[\"app/(landing)/page\",\"static/chunks/app/(landing)/page.js\"],\"\"]\n"])</script><script>self.__next_f.push([1,"f:[\"$\",\"div\",null,{\"children\":[[\"$\",\"div\",null,{\"className\":\"container mx-auto px-2 lg:px-[45px] grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-0 pb-[33px] lg:pb-[10px]\",\"children\":[[\"$\",\"div\",null,{\"className\":\"relative\",\"children\":[[\"$\",\"div\",null,{\"className\":\"h-[12em] lg:h-[24em] shadow-xl\",\"children\":[\"$\",\"$12\",null,{\"fallback\":null,\"children\":[\"$\",\"$L13\",null,{}]}]}],[\"$\",\"div\",null,{\"className\":\"hidden lg:block\",\"children\":[\"$\",\"div\",null,{\"className\":\"absolute top-0 left-0 right-0 z-20\",\"children\":[\"$\",\"h3\",null,{\"className\":\"text-24 xl:text-32 leading-[47px] w-full text-white text-center\",\"children\":[[\"$\",\"span\",null,{\"className\":\"text-bottleGreen\",\"children\":\"অটোমেশন ভূমি ব্যবস্থাপনার\"}],[\"$\",\"br\",null,{}],[\"$\",\"span\",null,{\"className\":\"text-[#D52329]\",\"children\":\"সমন্বিত সফটওয়্যার\"}]]}]}]}]]}],[\"$\",\"div\",null,{\"className\":\"flex justify-center items-center\",\"children\":[\"$\",\"div\",null,{\"className\":\"flex flex-col items-center w-full\",\"children\":[[\"$\",\"div\",null,{\"className\":\"text-center pb-[19px]\",\"children\":[[\"$\",\"h3\",null,{\"className\":\"text-24 xl:text-36 text-secondary\",\"children\":\"ভূমি সংক্রান্ত সহায়তার জন্য\"}],[\"$\",\"p\",null,{\"className\":\"text-16 leading-[31px] lg:text-20 text-secondary\",\"children\":\"কল করুন\"}]]}],[\"$\",\"div\",null,{\"className\":\"relative\",\"children\":[[\"$\",\"$L10\",null,{\"className\":\"w-[25.8125em] h-[17.3125em]\",\"width\":1000,\"height\":1000,\"src\":\"/images/hero_bg_2.png\",\"alt\":\"LSG\"}],[\"$\",\"div\",null,{\"className\":\"absolute top-0 flex flex-col gap-6 w-full\",\"children\":[[\"$\",\"div\",null,{\"className\":\" flex flex-col justify-center items-center rounded w-full py-[40px]\",\"children\":[\"$\",\"h3\",null,{\"className\":\"text-32 leading-[31px] lg:text-48 lg:leading-[36px] font-bold text-secondary\",\"children\":\"১৬১২২\"}]}],[\"$\",\"div\",null,{\"className\":\"flex flex-col justify-center items-center rounded w-full py-[35px]\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex items-center justify-center\",\"children\":[[\"$\",\"span\",null,{\"className\":\"mr-[7px]\",\"children\":[\"$\",\"svg\",null,{\"className\":\"fill-black\",\"width\":\"22\",\"height\":\"15\",\"viewBox\":\"0 0 22 15\",\"xmlns\":\"http://www.w3.org/2000/svg\",\"children\":[\"$\",\"path\",null,{\"fillRule\":\"evenodd\",\"clipRule\":\"evenodd\",\"d\":\"M0.5 0.75L1.25 0H20.75L21.5 0.75V14.25L20.75 15H1.25L0.5 14.25V0.75ZM2 2.3025V13.5H20V2.304L11.465 8.85H10.55L2 2.3025ZM18.545 1.5H3.455L11 7.3035L18.545 1.5Z\"}]}]}],[\"$\",\"p\",null,{\"className\":\"text-14 leading-[31px] lg:text-20\",\"children\":\"অভিযোগ/প্রতিকার ব্যবস্থার জন্য\"}]]}],[\"$\",\"h3\",null,{\"className\":\"text-24 leading-[31px] lg:text-24 lg:leading-[31px] font-bold text-secondary\",\"children\":\"grs@cabinet.gov.bd\"}]]}]]}]]}]]}]}]]}],[\"$\",\"div\",null,{\"className\":\"relative flex justify-center items-center\",\"children\":[[\"$\",\"$L10\",null,{\"src\":\"/images/bangladesh_bg.png\",\"className\":\"h-[100em] lg:h-[80em]\",\"width\":1000,\"height\":1000,\"alt\":\"LSG\"}],[\"$\",\"div\",null,{\"className\":\"absolute top-0 w-full\",\"children\":[[\"$\",\"div\",null,{\"className\":\"pb-[40px] lg:pb-[79px] lg:pt-[50px]\",\"children\":[[\"$\",\"div\",null,{\"className\":\"flex justify-center items-center pb-5 lg:pt-0 md:pb-[70px]\",\"children\":[\"$\",\"h3\",null,{\"className\":\"font-medium text-20 leading-[31px] lg:text-36 lg:leading-[31px] text-secondary\",\"children\":\"ভূমি সংক্রান্ত সেবা\"}]}],[\"$\",\"p\",null,{\"className\":\"text-center\",\"children\":\"নেটওয়ার্ক জনিত সমস্যা।\"}]]}],[\"$\",\"section\",null,{\"className\":\"container mx-auto px-4 lg:px-[144px] pb-[65px]\",\"children\":[\"$\",\"div\",null,{\"className\":\"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4\",\"children\":[[\"$\",\"$L10\",null,{\"src\":\"/images/home_faq22.png\",\"className\":\"lg:order-2 w-full h-[300px] lg:w-[431px] lg:h-[431px] lg:col-span-2\",\"width\":1000,\"height\":1000,\"alt\":\"LSG\"}],[\"$\",\"div\",null,{\"className\":\"lg:order-1 lg:col-span-3\",\"children\":[[\"$\",\"div\",null,{\"children\":[[\"$\",\"h3\",null,{\"className\":\"font-medium text-24 md:text-36 text-secondary pb-[15.45px] text-center\",\"children\":\"সচরাচর জিজ্ঞাসা\"}],[\"$\",\"p\",null,{\"className\":\"text-center\",\"children\":\"নেটওয়ার্ক জনিত সমস্যা।\"}]]}],false]}]]}]}]]}]]}],[\"$\",\"div\",null,{\"children\":[\"$\",\"$L10\",null,{\"className\":\"w-full lg:h-[22em] 2xl:container 2xl:mx-auto\",\"src\":\"/images/dhaka_line_2.png\",\"height\":1000,\"width\":1000,\"alt\":\"image\"}]}]]}]\n"])</script><script src="/_next/static/chunks/app/(landing)/page.js" async=""></script><div hidden id="S:1"><div><div class="container mx-auto px-2 lg:px-[45px] grid grid-cols-1 lg:grid-cols-2 gap-3 lg:gap-0 pb-[33px] lg:pb-[10px]"><div class="relative"><div class="h-[12em] lg:h-[24em] shadow-xl"><!--$--><p class="text-center">কোন তথ্য পাওয়া যায়নি।</p><!--/$--></div><div class="hidden lg:block"><div class="absolute top-0 left-0 right-0 z-20"><h3 class="text-24 xl:text-32 leading-[47px] w-full text-white text-center"><span class="text-bottleGreen">অটোমেশন ভূমি ব্যবস্থাপনার</span><br/><span class="text-[#D52329]">সমন্বিত সফটওয়্যার</span></h3></div></div></div><div class="flex justify-center items-center"><div class="flex flex-col items-center w-full"><div class="text-center pb-[19px]"><h3 class="text-24 xl:text-36 text-secondary">ভূমি সংক্রান্ত সহায়তার জন্য</h3><p class="text-16 leading-[31px] lg:text-20 text-secondary">কল করুন</p></div><div class="relative"><img alt="LSG" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" class="w-[25.8125em] h-[17.3125em]" style="color:transparent" srcSet="/_next/image?url=%2Fimages%2Fhero_bg_2.png&amp;w=1080&amp;q=75 1x, /_next/image?url=%2Fimages%2Fhero_bg_2.png&amp;w=2048&amp;q=75 2x" src="/_next/image?url=%2Fimages%2Fhero_bg_2.png&amp;w=2048&amp;q=75"/><div class="absolute top-0 flex flex-col gap-6 w-full"><div class=" flex flex-col justify-center items-center rounded w-full py-[40px]"><h3 class="text-32 leading-[31px] lg:text-48 lg:leading-[36px] font-bold text-secondary">১৬১২২</h3></div><div class="flex flex-col justify-center items-center rounded w-full py-[35px]"><div class="flex items-center justify-center"><span class="mr-[7px]"><svg class="fill-black" width="22" height="15" viewBox="0 0 22 15" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0.5 0.75L1.25 0H20.75L21.5 0.75V14.25L20.75 15H1.25L0.5 14.25V0.75ZM2 2.3025V13.5H20V2.304L11.465 8.85H10.55L2 2.3025ZM18.545 1.5H3.455L11 7.3035L18.545 1.5Z"></path></svg></span><p class="text-14 leading-[31px] lg:text-20">অভিযোগ/প্রতিকার ব্যবস্থার জন্য</p></div><h3 class="text-24 leading-[31px] lg:text-24 lg:leading-[31px] font-bold text-secondary"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e1869392a1828083888f8495cf868e97cf8385">[email&#160;protected]</a></h3></div></div></div></div></div></div><div class="relative flex justify-center items-center"><img alt="LSG" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" class="h-[100em] lg:h-[80em]" style="color:transparent" srcSet="/_next/image?url=%2Fimages%2Fbangladesh_bg.png&amp;w=1080&amp;q=75 1x, /_next/image?url=%2Fimages%2Fbangladesh_bg.png&amp;w=2048&amp;q=75 2x" src="/_next/image?url=%2Fimages%2Fbangladesh_bg.png&amp;w=2048&amp;q=75"/><div class="absolute top-0 w-full"><div class="pb-[40px] lg:pb-[79px] lg:pt-[50px]"><div class="flex justify-center items-center pb-5 lg:pt-0 md:pb-[70px]"><h3 class="font-medium text-20 leading-[31px] lg:text-36 lg:leading-[31px] text-secondary">ভূমি সংক্রান্ত সেবা</h3></div><p class="text-center">নেটওয়ার্ক জনিত সমস্যা।</p></div><section class="container mx-auto px-4 lg:px-[144px] pb-[65px]"><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4"><img alt="LSG" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" class="lg:order-2 w-full h-[300px] lg:w-[431px] lg:h-[431px] lg:col-span-2" style="color:transparent" srcSet="/_next/image?url=%2Fimages%2Fhome_faq22.png&amp;w=1080&amp;q=75 1x, /_next/image?url=%2Fimages%2Fhome_faq22.png&amp;w=2048&amp;q=75 2x" src="/_next/image?url=%2Fimages%2Fhome_faq22.png&amp;w=2048&amp;q=75"/><div class="lg:order-1 lg:col-span-3"><div><h3 class="font-medium text-24 md:text-36 text-secondary pb-[15.45px] text-center">সচরাচর জিজ্ঞাসা</h3><p class="text-center">নেটওয়ার্ক জনিত সমস্যা।</p></div></div></div></section></div></div><div><img alt="image" loading="lazy" width="1000" height="1000" decoding="async" data-nimg="1" class="w-full lg:h-[22em] 2xl:container 2xl:mx-auto" style="color:transparent" srcSet="/_next/image?url=%2Fimages%2Fdhaka_line_2.png&amp;w=1080&amp;q=75 1x, /_next/image?url=%2Fimages%2Fdhaka_line_2.png&amp;w=2048&amp;q=75 2x" src="/_next/image?url=%2Fimages%2Fdhaka_line_2.png&amp;w=2048&amp;q=75"/></div></div></div><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>$RS=function(a,b){a=document.getElementById(a);b=document.getElementById(b);for(a.parentNode.removeChild(a);a.firstChild;)b.parentNode.insertBefore(a.firstChild,b);b.parentNode.removeChild(b)};$RS("S:1","P:1")</script><script>$RC=function(b,c,e){c=document.getElementById(c);c.parentNode.removeChild(c);var a=document.getElementById(b);if(a){b=a.previousSibling;if(e)b.data="$!",a.setAttribute("data-dgst",e);else{e=b.parentNode;a=b.nextSibling;var f=0;do{if(a&&8===a.nodeType){var d=a.data;if("/$"===d)if(0===f)break;else f--;else"$"!==d&&"$?"!==d&&"$!"!==d||f++}d=a.nextSibling;e.removeChild(a);a=d}while(a);for(;c.firstChild;)e.insertBefore(c.firstChild,a);b.data="$"}b._reactRetry&&b._reactRetry()}};$RC("B:0","S:0")</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8eb59cfada9ea475","version":"2024.10.5","r":1,"token":"d23ac925dba540af8706e4e69fb3b086","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}' crossorigin="anonymous"></script>
-</body></html>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--background);
+            color: white;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .add-timer-panel {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            animation: slideDown 0.5s ease;
+        }
+
+        .timers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .timer-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 15px;
+            position: relative;
+            transition: transform 0.3s ease;
+            animation: scaleUp 0.3s ease;
+        }
+
+        .timer-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .timer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .timer-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .timer-display {
+            font-size: 2.5rem;
+            text-align: center;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        button {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            background: var(--secondary);
+            color: white;
+            transition: all 0.3s ease;
+            margin: 0.2rem;
+        }
+
+        button:hover {
+            filter: brightness(1.1);
+            transform: scale(1.05);
+        }
+
+        input[type="text"], input[type="datetime-local"] {
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            margin: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .delete-btn {
+            background: #e74c3c;
+            padding: 0.3rem 0.6rem;
+            font-size: 0.8rem;
+        }
+
+        @keyframes scaleUp {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .expired {
+            animation: pulse 1s infinite;
+            background: rgba(231, 76, 60, 0.3);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="add-timer-panel">
+            <input type="text" id="timerName" placeholder="Event Name">
+            <input type="datetime-local" id="timerDate">
+            <button onclick="addNewTimer()">Add Timer</button>
+        </div>
+
+        <div class="timers-grid" id="timersContainer">
+            <!-- Timers will be added here dynamically -->
+        </div>
+    </div>
+
+    <script>
+        let timers = JSON.parse(localStorage.getItem('timers')) || [];
+        
+        function updateTimerDisplay(timerId) {
+            const timer = timers.find(t => t.id === timerId);
+            const now = new Date().getTime();
+            const distance = timer.targetDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            const timerElement = document.getElementById(timerId);
+            if (distance < 0) {
+                timerElement.classList.add('expired');
+                timerElement.innerHTML = `
+                    <div class="timer-header">
+                        <div class="timer-name">${timer.name}</div>
+                        <button class="delete-btn" onclick="deleteTimer('${timerId}')">×</button>
+                    </div>
+                    <div class="timer-display">EXPIRED</div>
+                `;
+                return;
+            }
+
+            const progress = ((timer.initialDistance - distance) / timer.initialDistance) * 100;
+
+            timerElement.innerHTML = `
+                <div class="timer-header">
+                    <div class="timer-name">${timer.name}</div>
+                    <button class="delete-btn" onclick="deleteTimer('${timerId}')">×</button>
+                </div>
+                <div class="timer-display">
+                    ${days}d ${hours}h ${minutes}m ${seconds}s
+                </div>
+                <div class="progress-bar">
+                    <div class="progress" style="width: ${progress}%"></div>
+                </div>
+                <div class="controls">
+                    <button onclick="restartTimer('${timerId}')">Restart</button>
+                    <button onclick="editTimer('${timerId}')">Edit</button>
+                </div>
+            `;
+        }
+
+        function addNewTimer() {
+            const timerName = document.getElementById('timerName').value;
+            const targetDate = new Date(document.getElementById('timerDate').value).getTime();
+            
+            if (!timerName || !targetDate) return;
+
+            const timerId = 'timer-' + Date.now();
+            const initialDistance = targetDate - new Date().getTime();
+
+            timers.push({
+                id: timerId,
+                name: timerName,
+                targetDate: targetDate,
+                initialDistance: initialDistance
+            });
+
+            localStorage.setItem('timers', JSON.stringify(timers));
+            renderTimers();
+        }
+
+        function deleteTimer(timerId) {
+            timers = timers.filter(t => t.id !== timerId);
+            localStorage.setItem('timers', JSON.stringify(timers));
+            renderTimers();
+        }
+
+        function restartTimer(timerId) {
+            const timer = timers.find(t => t.id === timerId);
+            timer.targetDate = new Date().getTime() + timer.initialDistance;
+            localStorage.setItem('timers', JSON.stringify(timers));
+        }
+
+        function editTimer(timerId) {
+            const timer = timers.find(t => t.id === timerId);
+            const newName = prompt('Enter new name:', timer.name);
+            const newDate = prompt('Enter new date (YYYY-MM-DDTHH:mm):', 
+                new Date(timer.targetDate).toISOString().slice(0,16));
+            
+            if (newName) timer.name = newName;
+            if (newDate) {
+                timer.targetDate = new Date(newDate).getTime();
+                timer.initialDistance = timer.targetDate - new Date().getTime();
+            }
+            
+            localStorage.setItem('timers', JSON.stringify(timers));
+            renderTimers();
+        }
+
+        function renderTimers() {
+            const container = document.getElementById('timersContainer');
+            container.innerHTML = timers.map(t => 
+                `<div class="timer-card" id="${t.id}"></div>`
+            ).join('');
+
+            timers.forEach(timer => {
+                updateTimerDisplay(timer.id);
+                setInterval(() => updateTimerDisplay(timer.id), 1000);
+            });
+        }
+
+        // Initial render
+        renderTimers();
+    </script>
+</body>
+</html>
