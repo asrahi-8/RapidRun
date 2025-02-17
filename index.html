@@ -1,187 +1,76 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Run and Collect!</title>
+    <title>Runner Chase Game</title>
     <style>
-        #gameCanvas {
-            border: 2px solid black;
-            background: #f0f0f0;
-        }
-        #score {
-            font-size: 24px;
-            font-family: Arial;
-        }
-        .gameOver {
-            position: absolute;
-            color: red;
-            font-size: 48px;
-            display: none;
-        }
+        body { margin: 0; overflow: hidden; }
+        canvas { background: #87CEEB; display: block; }
     </style>
 </head>
 <body>
-    <div id="score">Score: 0</div>
-    <canvas id="gameCanvas" width="800" height="400"></canvas>
-    <div id="gameOverText" class="gameOver">GAME OVER!</div>
+    <canvas id="gameCanvas"></canvas>
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+        canvas.width = window.innerWidth;
+        canvas.height = 400;
 
-<script>
-const canvas = document.getElementById('gameCanvas');
-const ctx = canvas.getContext('2d');
-const scoreElement = document.getElementById('score');
-const gameOverText = document.getElementById('gameOverText');
+        let woman = { x: 50, y: 300, width: 50, height: 50, speed: 5 };
+        let man = { x: -50, y: 300, width: 50, height: 50, speed: 2 };
+        let coins = [];
+        let score = 0;
+        let running = true;
 
-// Game objects
-const player = {
-    x: 50,
-    y: 300,
-    width: 30,
-    height: 50,
-    speed: 5,
-    color: '#FF69B4'
-};
-
-const chaser = {
-    x: 750,
-    y: 300,
-    width: 30,
-    height: 50,
-    speed: 3,
-    color: '#4169E1'
-};
-
-let coins = [];
-let powerUps = [];
-let score = 0;
-let keys = {};
-let gameActive = true;
-let speedBoostActive = false;
-
-// Sound effects
-function playBeep(frequency, duration) {
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioCtx.createOscillator();
-    const gainNode = audioCtx.createGain();
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioCtx.destination);
-    
-    oscillator.frequency.value = frequency;
-    gainNode.gain.setValueAtTime(0.5, audioCtx.currentTime);
-    
-    oscillator.start();
-    gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration/1000);
-    oscillator.stop(audioCtx.currentTime + duration/1000);
-}
-
-// Spawn collectibles
-function spawnCollectible() {
-    if (Math.random() < 0.03) { // 3% chance to spawn coin each frame
-        coins.push({
-            x: Math.random() * (canvas.width - 20),
-            y: Math.random() * (canvas.height - 20),
-            size: 15,
-            color: '#FFD700'
-        });
-    }
-    
-    if (Math.random() < 0.005) { // 0.5% chance to spawn power-up
-        powerUps.push({
-            x: Math.random() * (canvas.width - 20),
-            y: Math.random() * (canvas.height - 20),
-            size: 20,
-            color: '#00FF00',
-            duration: 5000
-        });
-    }
-}
-
-// Input handling
-document.addEventListener('keydown', (e) => keys[e.key] = true);
-document.addEventListener('keyup', (e) => keys[e.key] = false);
-
-// Collision detection
-function checkCollision(rect1, rect2) {
-    return rect1.x < rect2.x + rect2.size &&
-           rect1.x + rect1.width > rect2.x &&
-           rect1.y < rect2.y + rect2.size &&
-           rect1.y + rect1.height > rect2.y;
-}
-
-// Game loop
-function gameLoop() {
-    if (!gameActive) return;
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
-    // Player movement
-    if (keys['ArrowLeft'] && player.x > 0) player.x -= player.speed;
-    if (keys['ArrowRight'] && player.x < canvas.width - player.width) player.x += player.speed;
-    if (keys['ArrowUp'] && player.y > 0) player.y -= player.speed;
-    if (keys['ArrowDown'] && player.y < canvas.height - player.height) player.y += player.speed;
-
-    // Chaser movement
-    const dx = player.x - chaser.x;
-    const dy = player.y - chaser.y;
-    const distance = Math.sqrt(dx*dx + dy*dy);
-    
-    if (distance > 0) {
-        chaser.x += (dx / distance) * chaser.speed;
-        chaser.y += (dy / distance) * chaser.speed;
-    }
-
-    // Spawn collectibles
-    spawnCollectible();
-
-    // Check collisions
-    coins.forEach((coin, index) => {
-        ctx.fillStyle = coin.color;
-        ctx.beginPath();
-        ctx.arc(coin.x, coin.y, coin.size/2, 0, Math.PI * 2);
-        ctx.fill();
-        
-        if (checkCollision(player, coin)) {
-            playBeep(1000, 200);
-            score += 10;
-            scoreElement.textContent = `Score: ${score}`;
-            coins.splice(index, 1);
+        function createCoin() {
+            let coin = { x: canvas.width, y: 300, width: 20, height: 20 };
+            coins.push(coin);
         }
-    });
+        setInterval(createCoin, 2000);
 
-    powerUps.forEach((powerUp, index) => {
-        ctx.fillStyle = powerUp.color;
-        ctx.fillRect(powerUp.x, powerUp.y, powerUp.size, powerUp.size);
-        
-        if (checkCollision(player, powerUp)) {
-            playBeep(500, 300);
-            player.speed *= 2;
-            speedBoostActive = true;
-            setTimeout(() => {
-                player.speed /= 2;
-                speedBoostActive = false;
-            }, powerUp.duration);
-            powerUps.splice(index, 1);
+        function update() {
+            if (!running) return;
+
+            man.x += man.speed;
+            if (man.x > canvas.width) man.x = -50;
+
+            coins.forEach((coin, index) => {
+                coin.x -= 3;
+                if (coin.x + coin.width < 0) coins.splice(index, 1);
+                if (
+                    woman.x < coin.x + coin.width &&
+                    woman.x + woman.width > coin.x &&
+                    woman.y < coin.y + coin.height &&
+                    woman.y + woman.height > coin.y
+                ) {
+                    score++;
+                    coins.splice(index, 1);
+                }
+            });
         }
-    });
 
-    // Draw characters
-    ctx.fillStyle = player.color;
-    ctx.fillRect(player.x, player.y, player.width, player.height);
-    
-    ctx.fillStyle = chaser.color;
-    ctx.fillRect(chaser.x, chaser.y, chaser.width, chaser.height);
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "blue";
+            ctx.fillRect(woman.x, woman.y, woman.width, woman.height);
+            ctx.fillStyle = "red";
+            ctx.fillRect(man.x, man.y, man.width, man.height);
+            ctx.fillStyle = "gold";
+            coins.forEach(coin => ctx.fillRect(coin.x, coin.y, coin.width, coin.height));
+            ctx.fillStyle = "black";
+            ctx.fillText("Score: " + score, 20, 20);
+        }
 
-    // Check game over
-    if (checkCollision(player, {x: chaser.x, y: chaser.y, size: Math.max(chaser.width, chaser.height)})) {
-        playBeep(200, 1000);
-        gameActive = false;
-        gameOverText.style.display = 'block';
-    }
+        function gameLoop() {
+            update();
+            draw();
+            requestAnimationFrame(gameLoop);
+        }
+        gameLoop();
 
-    requestAnimationFrame(gameLoop);
-}
-
-// Start game
-gameLoop();
-</script>
+        document.addEventListener("keydown", event => {
+            if (event.key === "ArrowUp" && woman.y > 250) woman.y -= 50;
+            if (event.key === "ArrowDown" && woman.y < 350) woman.y += 50;
+        });
+    </script>
 </body>
 </html>
