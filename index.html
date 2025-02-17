@@ -1,48 +1,104 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Runner Chase Game</title>
+    <title>Running Chase Game</title>
     <style>
-        body { margin: 0; overflow: hidden; }
-        canvas { background: #87CEEB; display: block; }
+        body { margin: 0; overflow: hidden; font-family: Arial, sans-serif; touch-action: manipulation; background: linear-gradient(to bottom, #ffcccb, #ff5733); }
+        canvas { background: linear-gradient(to bottom, #87CEEB, #4CAF50); display: block; position: absolute; top: 20%; left: 50%; transform: translateX(-50%); border: 5px solid #fff; box-shadow: 0px 0px 20px rgba(0,0,0,0.5); }
+        #controls { 
+            position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 30px;
+        }
+        button {
+            font-size: 60px; cursor: pointer; border: none; 
+            font-weight: bold; text-transform: uppercase;
+            padding: 40px 80px;
+            border-radius: 50px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+        }
+        #left { background: #FF5733; color: white; }
+        #right { background: #337BFF; color: white; }
+        #jump {
+            width: 220px; height: 220px; border-radius: 50%;
+            background: #33FF57; color: white; font-size: 48px;
+        }
     </style>
 </head>
 <body>
     <canvas id="gameCanvas"></canvas>
+    <div id="controls">
+        <button id="left" onclick="moveLeft()">LEFT</button>
+        <button id="jump" onclick="jump()">JUMP</button>
+        <button id="right" onclick="moveRight()">RIGHT</button>
+    </div>
     <script>
         const canvas = document.getElementById("gameCanvas");
         const ctx = canvas.getContext("2d");
-        canvas.width = window.innerWidth;
+        canvas.width = 800;
         canvas.height = 400;
 
-        let woman = { x: 50, y: 300, width: 50, height: 50, speed: 5 };
-        let man = { x: -50, y: 300, width: 50, height: 50, speed: 2 };
+        let woman = { x: 200, y: 300, width: 50, height: 50, dy: 0, dx: 0, jumpCount: 0 };
+        let obstacles = [];
         let coins = [];
         let score = 0;
-        let running = true;
+        let highScore = localStorage.getItem("highScore") || 0;
+        let gravity = 0.5;
+        let backgroundX = 0;
+        let gameOver = false;
 
-        function createCoin() {
-            let coin = { x: canvas.width, y: 300, width: 20, height: 20 };
-            coins.push(coin);
+        function createObstacle() {
+            obstacles.push({ x: canvas.width, y: 320, width: 50, height: 50 });
         }
-        setInterval(createCoin, 2000);
+        setInterval(createObstacle, 2000);
+        
+        function createCoin() {
+            coins.push({ x: canvas.width, y: Math.random() * (canvas.height - 150) + 50, width: 30, height: 30 });
+        }
+        setInterval(createCoin, 1500);
 
         function update() {
-            if (!running) return;
+            if (gameOver) return;
+            woman.x += woman.dx;
+            woman.y += woman.dy;
+            
+            if (woman.y + woman.height < 350) {
+                woman.dy += gravity;
+            } else {
+                woman.y = 300;
+                woman.dy = 0;
+                woman.jumpCount = 0;
+            }
+            
+            obstacles.forEach(obstacle => obstacle.x -= 5);
+            coins.forEach(coin => coin.x -= 5);
+            backgroundX -= 2;
+            if (backgroundX < -canvas.width) backgroundX = 0;
 
-            man.x += man.speed;
-            if (man.x > canvas.width) man.x = -50;
-
+            obstacles.forEach(obstacle => {
+                if (
+                    woman.x < obstacle.x + obstacle.width &&
+                    woman.x + woman.width > obstacle.x &&
+                    woman.y < obstacle.y + obstacle.height &&
+                    woman.y + woman.height > obstacle.y
+                ) {
+                    gameOver = true;
+                    if (score > highScore) {
+                        highScore = score;
+                        localStorage.setItem("highScore", highScore);
+                    }
+                    alert("Game Over! Score: " + score + " High Score: " + highScore);
+                    location.reload();
+                }
+            });
+            
             coins.forEach((coin, index) => {
-                coin.x -= 3;
-                if (coin.x + coin.width < 0) coins.splice(index, 1);
                 if (
                     woman.x < coin.x + coin.width &&
                     woman.x + woman.width > coin.x &&
                     woman.y < coin.y + coin.height &&
                     woman.y + woman.height > coin.y
                 ) {
-                    score++;
+                    score += 10;
                     coins.splice(index, 1);
                 }
             });
@@ -52,25 +108,39 @@
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             ctx.fillStyle = "blue";
             ctx.fillRect(woman.x, woman.y, woman.width, woman.height);
-            ctx.fillStyle = "red";
-            ctx.fillRect(man.x, man.y, man.width, man.height);
             ctx.fillStyle = "gold";
             coins.forEach(coin => ctx.fillRect(coin.x, coin.y, coin.width, coin.height));
-            ctx.fillStyle = "black";
-            ctx.fillText("Score: " + score, 20, 20);
+            ctx.fillStyle = "red";
+            obstacles.forEach(obstacle => ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height));
+            ctx.fillStyle = "white";
+            ctx.font = "28px Arial";
+            ctx.fillText("Score: " + score, 20, 40);
+            ctx.fillText("High Score: " + highScore, 20, 80);
         }
 
         function gameLoop() {
             update();
             draw();
-            requestAnimationFrame(gameLoop);
+            if (!gameOver) requestAnimationFrame(gameLoop);
         }
         gameLoop();
 
-        document.addEventListener("keydown", event => {
-            if (event.key === "ArrowUp" && woman.y > 250) woman.y -= 50;
-            if (event.key === "ArrowDown" && woman.y < 350) woman.y += 50;
-        });
+        function jump() {
+            if (woman.jumpCount < 2) {
+                woman.dy = -12;
+                woman.jumpCount++;
+            }
+        }
+        
+        function moveLeft() {
+            woman.dx = -7;
+            setTimeout(() => woman.dx = 0, 150);
+        }
+        
+        function moveRight() {
+            woman.dx = 7;
+            setTimeout(() => woman.dx = 0, 150);
+        }
     </script>
 </body>
 </html>
