@@ -1,146 +1,241 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Running Chase Game</title>
+    <title>Color Chase Game</title>
     <style>
-        body { margin: 0; overflow: hidden; font-family: Arial, sans-serif; touch-action: manipulation; background: linear-gradient(to bottom, #ffcccb, #ff5733); }
-        canvas { background: linear-gradient(to bottom, #87CEEB, #4CAF50); display: block; position: absolute; top: 20%; left: 50%; transform: translateX(-50%); border: 5px solid #fff; box-shadow: 0px 0px 20px rgba(0,0,0,0.5); }
-        #controls { 
-            position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%);
-            display: flex; gap: 30px;
+        body { 
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            touch-action: manipulation;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientFlow 15s ease infinite;
         }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        canvas {
+            background: rgba(255, 255, 255, 0.9);
+            display: block;
+            position: absolute;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 4px solid #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 40px rgba(0,0,0,0.3);
+        }
+
+        #controls {
+            position: fixed;
+            bottom: 5vh;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10vw;  /* Increased gap */
+            z-index: 100;
+        }
+
         button {
-            font-size: 60px; cursor: pointer; border: none; 
-            font-weight: bold; text-transform: uppercase;
-            padding: 40px 80px;
-            border-radius: 50px;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.3);
+            font-size: 15vw;  /* Bigger emojis */
+            cursor: pointer;
+            border: none;
+            width: 30vw;      /* Bigger circles */
+            height: 30vw;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.9); /* White background */
+            color: #000;      /* Black emojis */
+            box-shadow: 0 0 30px rgba(0,0,0,0.3);
+            transition: all 0.1s;
         }
-        #left { background: #FF5733; color: white; }
-        #right { background: #337BFF; color: white; }
-        #jump {
-            width: 220px; height: 220px; border-radius: 50%;
-            background: #33FF57; color: white; font-size: 48px;
+
+        button:active {
+            transform: scale(0.85);
+            background: rgba(255,255,255,0.7);
+        }
+
+        #scoreBoard {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 6vw;
+            background: rgba(0,0,0,0.5);
+            padding: 2vw 4vw;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(5px);
         }
     </style>
 </head>
 <body>
+    <div id="scoreBoard">
+        <div>⭐ SCORE: <span id="score">0</span></div>
+        <div>🏆 HIGH: <span id="highScore">0</span></div>
+    </div>
     <canvas id="gameCanvas"></canvas>
     <div id="controls">
-        <button id="left" onclick="moveLeft()">LEFT</button>
-        <button id="jump" onclick="jump()">JUMP</button>
-        <button id="right" onclick="moveRight()">RIGHT</button>
+        <button id="left">⬅️</button>
+        <button id="jump">🦘</button>  <!-- Kangaroo emoji -->
+        <button id="right">➡️</button>
     </div>
+
     <script>
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
+        // Game initialization
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
         canvas.width = 800;
         canvas.height = 400;
 
-        let woman = { x: 200, y: 300, width: 50, height: 50, dy: 0, dx: 0, jumpCount: 0 };
-        let obstacles = [];
-        let coins = [];
-        let score = 0;
-        let highScore = localStorage.getItem("highScore") || 0;
-        let gravity = 0.5;
-        let backgroundX = 0;
-        let gameOver = false;
+        let gameState = {
+            player: { x: 200, y: 300, dx: 0, dy: 0, jumpCount: 0 },
+            obstacles: [],
+            coins: [],
+            score: 0,
+            highScore: localStorage.getItem('highScore') || 0
+        };
 
-        function createObstacle() {
-            obstacles.push({ x: canvas.width, y: 320, width: 50, height: 50 });
-        }
-        setInterval(createObstacle, 2000);
-        
-        function createCoin() {
-            coins.push({ x: canvas.width, y: Math.random() * (canvas.height - 150) + 50, width: 30, height: 30 });
-        }
-        setInterval(createCoin, 1500);
+        // Touch handling
+        let activeTouches = new Set();
 
-        function update() {
-            if (gameOver) return;
-            woman.x += woman.dx;
-            woman.y += woman.dy;
-            
-            if (woman.y + woman.height < 350) {
-                woman.dy += gravity;
-            } else {
-                woman.y = 300;
-                woman.dy = 0;
-                woman.jumpCount = 0;
+        document.addEventListener('touchstart', e => {
+            e.preventDefault();
+            Array.from(e.touches).forEach(touch => {
+                const button = document.elementFromPoint(touch.clientX, touch.clientY);
+                if (button) handleButtonPress(button.id);
+            });
+        });
+
+        document.addEventListener('touchend', e => {
+            e.preventDefault();
+            activeTouches.clear();
+        });
+
+        document.addEventListener('mousedown', e => {
+            if (e.target.closest('button')) handleButtonPress(e.target.id);
+        });
+
+        function handleButtonPress(id) {
+            activeTouches.add(id);
+            if (id === 'jump' && gameState.player.jumpCount < 2) {
+                gameState.player.dy = -12;
+                gameState.player.jumpCount++;
             }
-            
-            obstacles.forEach(obstacle => obstacle.x -= 5);
-            coins.forEach(coin => coin.x -= 5);
-            backgroundX -= 2;
-            if (backgroundX < -canvas.width) backgroundX = 0;
+        }
 
-            obstacles.forEach(obstacle => {
-                if (
-                    woman.x < obstacle.x + obstacle.width &&
-                    woman.x + woman.width > obstacle.x &&
-                    woman.y < obstacle.y + obstacle.height &&
-                    woman.y + woman.height > obstacle.y
-                ) {
-                    gameOver = true;
-                    if (score > highScore) {
-                        highScore = score;
-                        localStorage.setItem("highScore", highScore);
-                    }
-                    alert("Game Over! Score: " + score + " High Score: " + highScore);
-                    location.reload();
+        // Game loop
+        function update() {
+            // Horizontal movement
+            gameState.player.dx = 0;
+            if (activeTouches.has('left')) gameState.player.dx = -7;
+            if (activeTouches.has('right')) gameState.player.dx = 7;
+
+            // Update positions
+            gameState.player.x = Math.max(0, Math.min(canvas.width - 50, gameState.player.x + gameState.player.dx));
+            gameState.player.y += gameState.player.dy;
+
+            // Gravity
+            if (gameState.player.y + 50 < 350) {
+                gameState.player.dy += 0.5;
+            } else {
+                gameState.player.y = 300;
+                gameState.player.dy = 0;
+                gameState.player.jumpCount = 0;
+            }
+
+            // Update objects
+            gameState.obstacles.forEach(o => o.x -= 5);
+            gameState.coins.forEach(c => c.x -= 5);
+
+            // Collision detection
+            gameState.obstacles.forEach(obstacle => {
+                if (checkCollision(gameState.player, obstacle)) {
+                    gameOver();
                 }
             });
-            
-            coins.forEach((coin, index) => {
-                if (
-                    woman.x < coin.x + coin.width &&
-                    woman.x + woman.width > coin.x &&
-                    woman.y < coin.y + coin.height &&
-                    woman.y + woman.height > coin.y
-                ) {
-                    score += 10;
-                    coins.splice(index, 1);
+
+            gameState.coins.forEach((coin, index) => {
+                if (checkCollision(gameState.player, coin)) {
+                    gameState.score += 10;
+                    gameState.coins.splice(index, 1);
+                    document.getElementById('score').textContent = gameState.score;
                 }
             });
         }
 
         function draw() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "blue";
-            ctx.fillRect(woman.x, woman.y, woman.width, woman.height);
-            ctx.fillStyle = "gold";
-            coins.forEach(coin => ctx.fillRect(coin.x, coin.y, coin.width, coin.height));
-            ctx.fillStyle = "red";
-            obstacles.forEach(obstacle => ctx.fillRect(obstacle.x, obstacle.y, obstacle.width, obstacle.height));
-            ctx.fillStyle = "white";
-            ctx.font = "28px Arial";
-            ctx.fillText("Score: " + score, 20, 40);
-            ctx.fillText("High Score: " + highScore, 20, 80);
+            
+            // Draw player
+            ctx.font = "60px Arial";
+            ctx.fillStyle = "#ff3366";
+            ctx.fillText('😎', gameState.player.x, gameState.player.y);
+
+            // Draw objects
+            ctx.font = "40px Arial";
+            gameState.obstacles.forEach(o => {
+                ctx.fillStyle = o.color;
+                ctx.fillText(o.emoji, o.x, o.y);
+            });
+
+            gameState.coins.forEach(c => {
+                ctx.fillStyle = "#ffd700";
+                ctx.fillText('💰', c.x, c.y);
+            });
         }
 
+        function checkCollision(a, b) {
+            return a.x < b.x + b.width &&
+                   a.x + 50 > b.x &&
+                   a.y < b.y + b.height &&
+                   a.y + 50 > b.y;
+        }
+
+        function gameOver() {
+            if (gameState.score > gameState.highScore) {
+                localStorage.setItem('highScore', gameState.score);
+            }
+            alert(`Game Over! Score: ${gameState.score}`);
+            location.reload();
+        }
+
+        // Object creation
+        setInterval(() => {
+            gameState.obstacles.push({
+                x: canvas.width,
+                y: 320,
+                width: 50,
+                height: 50,
+                emoji: ["🚧","🚗","👾"][Math.floor(Math.random()*3)],
+                color: ["#ff5555","#55ff55","#8888ff"][Math.floor(Math.random()*3)]
+            });
+        }, 2000);
+
+        setInterval(() => {
+            gameState.coins.push({
+                x: canvas.width,
+                y: Math.random() * (canvas.height - 150) + 50,
+                width: 30,
+                height: 30
+            });
+        }, 1500);
+
+        // Start game
         function gameLoop() {
             update();
             draw();
-            if (!gameOver) requestAnimationFrame(gameLoop);
+            requestAnimationFrame(gameLoop);
         }
         gameLoop();
-
-        function jump() {
-            if (woman.jumpCount < 2) {
-                woman.dy = -12;
-                woman.jumpCount++;
-            }
-        }
-        
-        function moveLeft() {
-            woman.dx = -7;
-            setTimeout(() => woman.dx = 0, 150);
-        }
-        
-        function moveRight() {
-            woman.dx = 7;
-            setTimeout(() => woman.dx = 0, 150);
-        }
     </script>
 </body>
 </html>
