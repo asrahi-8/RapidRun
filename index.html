@@ -1,273 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Add this to your <head> section -->
-   <link rel="manifest" href="/manifest.json">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced Countdown Timer</title>
+    <title>Runner Game</title>
     <style>
-        :root {
-            --primary: #2ecc71;
-            --secondary: #3498db;
-            --background: #2c3e50;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
         body {
-            min-height: 100vh;
-            background: var(--background);
-            color: white;
-            padding: 2rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .add-timer-panel {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            margin-bottom: 2rem;
-            animation: slideDown 0.5s ease;
-        }
-
-        .timers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .timer-card {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1.5rem;
-            border-radius: 15px;
-            position: relative;
-            transition: transform 0.3s ease;
-            animation: scaleUp 0.3s ease;
-        }
-
-        .timer-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .timer-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-        }
-
-        .timer-name {
-            font-size: 1.2rem;
-            font-weight: 600;
-        }
-
-        .timer-display {
-            font-size: 2.5rem;
-            text-align: center;
-            margin: 1rem 0;
-            font-family: 'Courier New', monospace;
-            text-shadow: 0 0 10px rgba(46, 204, 113, 0.5);
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 4px;
+            margin: 0;
             overflow: hidden;
-            margin: 1rem 0;
+            background: linear-gradient(to bottom, #87CEEB, #FFFFFF);
         }
-
-        .progress {
-            height: 100%;
-            background: var(--primary);
-            width: 0%;
-            transition: width 0.5s ease;
-        }
-
-        button {
-            padding: 0.6rem 1.2rem;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            background: var(--secondary);
-            color: white;
-            transition: all 0.3s ease;
-            margin: 0.2rem;
-        }
-
-        button:hover {
-            filter: brightness(1.1);
-            transform: scale(1.05);
-        }
-
-        input[type="text"], input[type="datetime-local"] {
-            padding: 0.8rem;
-            border: none;
-            border-radius: 8px;
-            margin: 0.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-        }
-
-        .delete-btn {
-            background: #e74c3c;
-            padding: 0.3rem 0.6rem;
-            font-size: 0.8rem;
-        }
-
-        @keyframes scaleUp {
-            from { transform: scale(0.9); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        @keyframes slideDown {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .expired {
-            animation: pulse 1s infinite;
-            background: rgba(231, 76, 60, 0.3);
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.02); }
-            100% { transform: scale(1); }
+        canvas {
+            display: block;
+            background: url('road.jpg') repeat-y;
+            background-size: 100% auto;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="add-timer-panel">
-            <input type="text" id="timerName" placeholder="Event Name">
-            <input type="datetime-local" id="timerDate">
-            <button onclick="addNewTimer()">Add Timer</button>
-        </div>
-
-        <div class="timers-grid" id="timersContainer">
-            <!-- Timers will be added here dynamically -->
-        </div>
-    </div>
-
+    <canvas id="gameCanvas"></canvas>
+    <audio id="bgMusic" loop>
+        <source src="bg_music.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="coinSound">
+        <source src="coin_sound.mp3" type="audio/mpeg">
+    </audio>
     <script>
-        let timers = JSON.parse(localStorage.getItem('timers')) || [];
-        
-        function updateTimerDisplay(timerId) {
-            const timer = timers.find(t => t.id === timerId);
-            const now = new Date().getTime();
-            const distance = timer.targetDate - now;
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        // Load assets
+        const womanImg = new Image();
+        womanImg.src = 'woman.png';
+        const manImg = new Image();
+        manImg.src = 'man.png';
+        const coinImg = new Image();
+        coinImg.src = 'coin.png';
 
-            const timerElement = document.getElementById(timerId);
-            if (distance < 0) {
-                timerElement.classList.add('expired');
-                timerElement.innerHTML = `
-                    <div class="timer-header">
-                        <div class="timer-name">${timer.name}</div>
-                        <button class="delete-btn" onclick="deleteTimer('${timerId}')">×</button>
-                    </div>
-                    <div class="timer-display">EXPIRED</div>
-                `;
-                return;
+        // Game variables
+        let womanX = 100;
+        let womanY = canvas.height - 200;
+        let manX = canvas.width + 100;
+        let manY = canvas.height - 200;
+        let coinX = Math.random() * canvas.width;
+        let coinY = Math.random() * canvas.height;
+        let score = 0;
+        let speed = 5;
+        let isJumping = false;
+
+        // Audio
+        const bgMusic = document.getElementById('bgMusic');
+        const coinSound = document.getElementById('coinSound');
+
+        // Draw woman
+        function drawWoman() {
+            ctx.drawImage(womanImg, womanX, womanY, 100, 100);
+        }
+
+        // Draw man
+        function drawMan() {
+            ctx.drawImage(manImg, manX, manY, 100, 100);
+        }
+
+        // Draw coin
+        function drawCoin() {
+            ctx.drawImage(coinImg, coinX, coinY, 50, 50);
+        }
+
+        // Update game state
+        function update() {
+            // Move man
+            manX -= speed;
+            if (manX < -100) {
+                manX = canvas.width + 100;
+                speed += 1; // Increase difficulty
             }
 
-            const progress = ((timer.initialDistance - distance) / timer.initialDistance) * 100;
-
-            timerElement.innerHTML = `
-                <div class="timer-header">
-                    <div class="timer-name">${timer.name}</div>
-                    <button class="delete-btn" onclick="deleteTimer('${timerId}')">×</button>
-                </div>
-                <div class="timer-display">
-                    ${days}d ${hours}h ${minutes}m ${seconds}s
-                </div>
-                <div class="progress-bar">
-                    <div class="progress" style="width: ${progress}%"></div>
-                </div>
-                <div class="controls">
-                    <button onclick="restartTimer('${timerId}')">Restart</button>
-                    <button onclick="editTimer('${timerId}')">Edit</button>
-                </div>
-            `;
-        }
-
-        function addNewTimer() {
-            const timerName = document.getElementById('timerName').value;
-            const targetDate = new Date(document.getElementById('timerDate').value).getTime();
-            
-            if (!timerName || !targetDate) return;
-
-            const timerId = 'timer-' + Date.now();
-            const initialDistance = targetDate - new Date().getTime();
-
-            timers.push({
-                id: timerId,
-                name: timerName,
-                targetDate: targetDate,
-                initialDistance: initialDistance
-            });
-
-            localStorage.setItem('timers', JSON.stringify(timers));
-            renderTimers();
-        }
-
-        function deleteTimer(timerId) {
-            timers = timers.filter(t => t.id !== timerId);
-            localStorage.setItem('timers', JSON.stringify(timers));
-            renderTimers();
-        }
-
-        function restartTimer(timerId) {
-            const timer = timers.find(t => t.id === timerId);
-            timer.targetDate = new Date().getTime() + timer.initialDistance;
-            localStorage.setItem('timers', JSON.stringify(timers));
-        }
-
-        function editTimer(timerId) {
-            const timer = timers.find(t => t.id === timerId);
-            const newName = prompt('Enter new name:', timer.name);
-            const newDate = prompt('Enter new date (YYYY-MM-DDTHH:mm):', 
-                new Date(timer.targetDate).toISOString().slice(0,16));
-            
-            if (newName) timer.name = newName;
-            if (newDate) {
-                timer.targetDate = new Date(newDate).getTime();
-                timer.initialDistance = timer.targetDate - new Date().getTime();
+            // Check collision with man
+            if (womanX < manX + 100 && womanX + 100 > manX && womanY < manY + 100 && womanY + 100 > manY) {
+                alert('Game Over! Score: ' + score);
+                resetGame();
             }
-            
-            localStorage.setItem('timers', JSON.stringify(timers));
-            renderTimers();
+
+            // Check coin collection
+            if (womanX < coinX + 50 && womanX + 100 > coinX && womanY < coinY + 50 && womanY + 100 > coinY) {
+                score += 10;
+                coinX = Math.random() * canvas.width;
+                coinY = Math.random() * canvas.height;
+                coinSound.play();
+            }
         }
 
-        function renderTimers() {
-            const container = document.getElementById('timersContainer');
-            container.innerHTML = timers.map(t => 
-                `<div class="timer-card" id="${t.id}"></div>`
-            ).join('');
-
-            timers.forEach(timer => {
-                updateTimerDisplay(timer.id);
-                setInterval(() => updateTimerDisplay(timer.id), 1000);
-            });
+        // Draw game
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawWoman();
+            drawMan();
+            drawCoin();
+            ctx.fillStyle = 'black';
+            ctx.font = '20px Arial';
+            ctx.fillText('Score: ' + score, 20, 30);
         }
 
-        // Initial render
-        renderTimers();
+        // Game loop
+        function gameLoop() {
+            update();
+            draw();
+            requestAnimationFrame(gameLoop);
+        }
+
+        // Reset game
+        function resetGame() {
+            womanX = 100;
+            womanY = canvas.height - 200;
+            manX = canvas.width + 100;
+            manY = canvas.height - 200;
+            coinX = Math.random() * canvas.width;
+            coinY = Math.random() * canvas.height;
+            score = 0;
+            speed = 5;
+        }
+
+        // Handle touch controls
+        document.addEventListener('touchstart', (e) => {
+            if (!isJumping) {
+                isJumping = true;
+                let jumpHeight = 0;
+                const jumpInterval = setInterval(() => {
+                    if (jumpHeight < 100) {
+                        womanY -= 5;
+                        jumpHeight += 5;
+                    } else {
+                        clearInterval(jumpInterval);
+                        const fallInterval = setInterval(() => {
+                            if (womanY < canvas.height - 200) {
+                                womanY += 5;
+                            } else {
+                                clearInterval(fallInterval);
+                                isJumping = false;
+                            }
+                        }, 20);
+                    }
+                }, 20);
+            }
+        });
+
+        // Start game
+        womanImg.onload = () => {
+            bgMusic.play();
+            gameLoop();
+        };
     </script>
 </body>
 </html>
