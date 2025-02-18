@@ -3,7 +3,7 @@
 ![Demo](https://img.shields.io/badge/Demo-Live_Game-blue) 
 ![Tech](https://img.shields.io/badge/Built_with-HTML%20%7C%20CSS%20%7C%20JS-orange)
 
-(Update 1.1):-18-02-2024
+(Update 1.1):-18-02-2025
 
 A colorful endless runner game with emoji-powered graphics and dynamic controls. Jump, dodge, and collect coins in this browser-based arcade experience!
 
