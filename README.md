@@ -1,5 +1,7 @@
 # 🎮 Rapid Runner - A Vibrant Runner Game
 
+(Update 1.0):-18-02-2024
+
 ![Demo](https://img.shields.io/badge/Demo-Live_Game-blue) 
 ![Tech](https://img.shields.io/badge/Built_with-HTML%20%7C%20CSS%20%7C%20JS-orange)
 
