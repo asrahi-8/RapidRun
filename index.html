@@ -75,6 +75,21 @@
             text-align: center;
             backdrop-filter: blur(5px);
         }
+
+        #gameOverMessage {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 4vw;
+            display: none;
+            z-index: 200;
+        }
     </style>
 </head>
 <body>
@@ -89,6 +104,10 @@
         <button id="right">➡️</button>
     </div>
 
+    <div id="gameOverMessage">
+        <p id="performanceText"></p>
+    </div>
+
     <script>
         // Game initialization
         const canvas = document.getElementById('gameCanvas');
@@ -101,8 +120,12 @@
             obstacles: [],
             coins: [],
             score: 0,
-            highScore: localStorage.getItem('highScore') || 0
+            highScore: localStorage.getItem('highScore') || 0,
+            isGameOver: false
         };
+
+        // Update high score display
+        document.getElementById('highScore').textContent = gameState.highScore;
 
         // Touch handling
         let activeTouches = new Set();
@@ -134,6 +157,8 @@
 
         // Game loop
         function update() {
+            if (gameState.isGameOver) return;
+
             // Horizontal movement
             gameState.player.dx = 0;
             if (activeTouches.has('left')) gameState.player.dx = -7;
@@ -201,32 +226,75 @@
         }
 
         function gameOver() {
+            gameState.isGameOver = true;
+
+            // Update high score
             if (gameState.score > gameState.highScore) {
-                localStorage.setItem('highScore', gameState.score);
+                gameState.highScore = gameState.score;
+                localStorage.setItem('highScore', gameState.highScore);
+                document.getElementById('highScore').textContent = gameState.highScore;
             }
-            alert(`Game Over! Score: ${gameState.score}`);
-            location.reload();
+
+            // Show funny performance message
+            const performanceText = document.getElementById('performanceText');
+            const difference = gameState.highScore - gameState.score;
+            let message;
+
+            if (gameState.score === gameState.highScore) {
+                message = "🎉 Wow! You're a LEGEND! 🎉<br>You just set a new high score!";
+            } else if (difference <= 50) {
+                message = "😲 So close! You were just " + difference + " points away from the high score!";
+            } else if (difference <= 100) {
+                message = "🤔 Not bad! But you're still " + difference + " points behind the high score.";
+            } else {
+                message = "😅 Oops! You're " + difference + " points away from the high score. Better luck next time!";
+            }
+
+            performanceText.innerHTML = `Game Over!<br>Your Score: ${gameState.score}<br>${message}`;
+            document.getElementById('gameOverMessage').style.display = 'block';
+
+            // Restart the game after 5 seconds
+            setTimeout(() => {
+                resetGame();
+            }, 5000);
+        }
+
+        function resetGame() {
+            gameState = {
+                player: { x: 200, y: 300, dx: 0, dy: 0, jumpCount: 0 },
+                obstacles: [],
+                coins: [],
+                score: 0,
+                highScore: localStorage.getItem('highScore') || 0,
+                isGameOver: false
+            };
+            document.getElementById('score').textContent = 0;
+            document.getElementById('gameOverMessage').style.display = 'none';
         }
 
         // Object creation
         setInterval(() => {
-            gameState.obstacles.push({
-                x: canvas.width,
-                y: 320,
-                width: 50,
-                height: 50,
-                emoji: ["🚧","🚗","👾"][Math.floor(Math.random()*3)],
-                color: ["#ff5555","#55ff55","#8888ff"][Math.floor(Math.random()*3)]
-            });
+            if (!gameState.isGameOver) {
+                gameState.obstacles.push({
+                    x: canvas.width,
+                    y: 320,
+                    width: 50,
+                    height: 50,
+                    emoji: ["🚧","🚗","👾"][Math.floor(Math.random()*3)],
+                    color: ["#ff5555","#55ff55","#8888ff"][Math.floor(Math.random()*3)]
+                });
+            }
         }, 2000);
 
         setInterval(() => {
-            gameState.coins.push({
-                x: canvas.width,
-                y: Math.random() * (canvas.height - 150) + 50,
-                width: 30,
-                height: 30
-            });
+            if (!gameState.isGameOver) {
+                gameState.coins.push({
+                    x: canvas.width,
+                    y: Math.random() * (canvas.height - 150) + 50,
+                    width: 30,
+                    height: 30
+                });
+            }
         }, 1500);
 
         // Start game
