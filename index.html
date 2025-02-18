@@ -101,6 +101,41 @@
             display: none;
             z-index: 200;
         }
+
+        #instructions {
+            position: fixed;
+            bottom: 40vh;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 3vw;
+            color: #333;
+            box-shadow: 0 0 30px rgba(0,0,0,0.3);
+            z-index: 100;
+        }
+
+        #instructions h2 {
+            margin: 0 0 10px;
+            font-size: 4vw;
+            color: #ff3366;
+        }
+
+        #instructions p {
+            margin: 5px 0;
+        }
+
+        #instructions a {
+            color: #23a6d5;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        #instructions a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -109,6 +144,13 @@
         <div>🏆 HIGH: <span id="highScore">0</span></div>
     </div>
     <canvas id="gameCanvas"></canvas>
+    <div id="instructions">
+        <h2>How to Play</h2>
+        <p>Use the <strong>⬅️</strong> and <strong>➡️</strong> buttons to move left and right.</p>
+        <p>Press the <strong>🦘</strong> button to jump.</p>
+        <p>Avoid obstacles and collect coins to score points!</p>
+        <p>Made with ❤️ by <a href="https://example.com" target="_blank">Your Name</a></p>
+    </div>
     <div id="controls">
         <button id="left">⬅️</button>
         <button id="jump">🦘</button>
