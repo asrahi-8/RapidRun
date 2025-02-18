@@ -3,7 +3,7 @@
 <head>
     <title>Color Chase Game</title>
     <style>
-        /* Prevent text selection on tap */
+        /* Original functionality with enhanced, animated visuals */
         body {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -13,7 +13,7 @@
             overflow: hidden;
             font-family: Arial, sans-serif;
             touch-action: manipulation;
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background: linear-gradient(-45deg, #ff0066, #ffcc00, #33ccff, #33ff99);
             background-size: 400% 400%;
             animation: gradientFlow 15s ease infinite, pulseBackground 5s ease infinite;
         }
@@ -30,6 +30,7 @@
             100% { opacity: 1; }
         }
 
+        /* Canvas stays as original */
         canvas {
             background: rgba(255, 255, 255, 0.9);
             display: block;
@@ -42,6 +43,7 @@
             box-shadow: 0 0 40px rgba(0,0,0,0.3);
         }
 
+        /* On-screen directional controls (Left, Jump, Right) */
         #controls {
             position: fixed;
             bottom: 5vh;
@@ -73,6 +75,7 @@
             background: rgba(255,255,255,0.7);
         }
 
+        /* Scoreboard (unchanged) */
         #scoreBoard {
             position: fixed;
             top: 20px;
@@ -87,6 +90,7 @@
             backdrop-filter: blur(5px);
         }
 
+        /* Game over message (unchanged) */
         #gameOverMessage {
             position: fixed;
             top: 50%;
@@ -102,6 +106,7 @@
             z-index: 200;
         }
 
+        /* Instructions restored from original with a subtle gradient border */
         #instructions {
             position: fixed;
             bottom: 40vh;
@@ -115,6 +120,8 @@
             color: #333;
             box-shadow: 0 0 30px rgba(0,0,0,0.3);
             z-index: 100;
+            border: 3px solid;
+            border-image: linear-gradient(45deg, #ff0066, #33ccff) 1;
         }
 
         #instructions h2 {
@@ -137,6 +144,7 @@
             text-decoration: underline;
         }
 
+        /* Game controls (Play, Pause, Restart) restored with subtle gradient border */
         #gameControls {
             position: fixed;
             bottom: 20vh;
@@ -159,6 +167,8 @@
             align-items: center;
             justify-content: center;
             flex-direction: column;
+            border: 3px solid;
+            border-image: linear-gradient(45deg, #ff0066, #33ccff) 1;
         }
 
         #gameControls button span {
@@ -308,13 +318,12 @@
             ctx.fillStyle = "#ff3366";
             ctx.fillText('😎', gameState.player.x, gameState.player.y);
 
-            // Draw objects
+            // Draw obstacles and coins
             ctx.font = "40px Arial";
             gameState.obstacles.forEach(o => {
                 ctx.fillStyle = o.color;
                 ctx.fillText(o.emoji, o.x, o.y);
             });
-
             gameState.coins.forEach(c => {
                 ctx.fillStyle = "#ffd700";
                 ctx.fillText('💰', c.x, c.y);
@@ -338,7 +347,7 @@
                 document.getElementById('highScore').textContent = gameState.highScore;
             }
 
-            // Show funny performance message
+            // Show performance message
             const performanceText = document.getElementById('performanceText');
             const difference = gameState.highScore - gameState.score;
             let message;
@@ -401,7 +410,7 @@
             }
         }, 1500);
 
-        // Start game
+        // Start game loop
         function gameLoop() {
             update();
             draw();
