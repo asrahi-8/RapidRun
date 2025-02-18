@@ -3,20 +3,31 @@
 <head>
     <title>Color Chase Game</title>
     <style>
-        body { 
+        /* Prevent text selection on tap */
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
             margin: 0;
             overflow: hidden;
             font-family: Arial, sans-serif;
             touch-action: manipulation;
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%;
-            animation: gradientFlow 15s ease infinite;
+            animation: gradientFlow 15s ease infinite, pulseBackground 5s ease infinite;
         }
 
         @keyframes gradientFlow {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
+        }
+
+        @keyframes pulseBackground {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
         }
 
         canvas {
@@ -37,22 +48,22 @@
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 10vw;  /* Increased gap */
+            gap: 10vw;
             z-index: 100;
         }
 
         button {
-            font-size: 15vw;  /* Bigger emojis */
+            font-size: 15vw;
             cursor: pointer;
             border: none;
-            width: 30vw;      /* Bigger circles */
+            width: 30vw;
             height: 30vw;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(255,255,255,0.9); /* White background */
-            color: #000;      /* Black emojis */
+            background: rgba(255,255,255,0.9);
+            color: #000;
             box-shadow: 0 0 30px rgba(0,0,0,0.3);
             transition: all 0.1s;
         }
@@ -100,7 +111,7 @@
     <canvas id="gameCanvas"></canvas>
     <div id="controls">
         <button id="left">⬅️</button>
-        <button id="jump">🦘</button>  <!-- Kangaroo emoji -->
+        <button id="jump">🦘</button>
         <button id="right">➡️</button>
     </div>
 
