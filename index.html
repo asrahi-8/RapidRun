@@ -178,7 +178,8 @@
         <p>Use the <strong>⬅️</strong> and <strong>➡️</strong> buttons to move left and right.</p>
         <p>Press the <strong>🦘</strong> button to jump.</p>
         <p>Avoid obstacles and collect coins to score points!</p>
-        <p>Made with ❤️ by <a href="https://example.com" target="_blank">Your Name</a></p>
+        <p>Each coin will count as 69 points 💀</p>
+        <p>Made with ❤️ by <a href="https://t.me/asrahi_07" target="_blank">AS Rahi</a></p>
     </div>
     <div id="gameControls">
         <button id="playButton">
@@ -293,7 +294,7 @@
 
             gameState.coins.forEach((coin, index) => {
                 if (checkCollision(gameState.player, coin)) {
-                    gameState.score += 10;
+                    gameState.score += 69;
                     gameState.coins.splice(index, 1);
                     document.getElementById('score').textContent = gameState.score;
                 }
