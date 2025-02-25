@@ -3,7 +3,7 @@
 <head>
     <title>Color Chase Game</title>
     <style>
-        /* Prevent text selection on tap */
+        /* Default (Day Mode) Theme */
         body {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -16,6 +16,7 @@
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%;
             animation: gradientFlow 15s ease infinite, pulseBackground 5s ease infinite;
+            transition: background 0.5s ease-in-out;
         }
 
         @keyframes gradientFlow {
@@ -30,6 +31,12 @@
             100% { opacity: 1; }
         }
 
+        /* Night Mode Theme */
+        body.night-mode {
+            background: #121212;
+            animation: none;
+        }
+
         canvas {
             background: rgba(255, 255, 255, 0.9);
             display: block;
@@ -40,6 +47,12 @@
             border: 4px solid #fff;
             border-radius: 15px;
             box-shadow: 0 0 40px rgba(0,0,0,0.3);
+        }
+
+        /* Night Mode Canvas */
+        body.night-mode canvas {
+            background: rgba(30, 30, 30, 0.9);
+            border: 4px solid #444;
         }
 
         #controls {
@@ -71,6 +84,25 @@
         button:active {
             transform: scale(0.85);
             background: rgba(255,255,255,0.7);
+        }
+
+        /* Night Mode Button */
+        #toggleTheme {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #444;
+            color: white;
+            font-size: 4vw;
+            padding: 2px 4px;
+            border-radius: 3px;
+            cursor: pointer;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+        }
+
+        body.night-mode #toggleTheme {
+            background: #ddd;
+            color: black;
         }
 
         #scoreBoard {
@@ -178,7 +210,7 @@
         <p>Use the <strong>⬅️</strong> and <strong>➡️</strong> buttons to move left and right.</p>
         <p>Press the <strong>🦘</strong> button to jump.</p>
         <p>Avoid obstacles and collect coins to score points!</p>
-        <p>Made with ❤️ by <a href="https://t.me/asrahi_07" target="_blank" onclick="window.open('https://t.me/asrahi_07', '_blank'); return false;">AS Rahi</a></p>
+        <p>Made with ❤️ by <a href="https://t.me/asrahi_07" target="_blank">AS Rahi</a></p>
     </div>
     <div id="gameControls">
         <button id="playButton">
@@ -200,6 +232,9 @@
         <button id="right">➡️</button>
     </div>
 
+    <!-- Night Mode Toggle Button -->
+    <button id="toggleTheme">🌙 Night Mode</button>
+
     <div id="gameOverMessage">
         <p id="performanceText"></p>
     </div>
@@ -220,6 +255,17 @@
             isGameOver: false,
             isPaused: false
         };
+
+        // Night Mode Toggle
+        const themeButton = document.getElementById('toggleTheme');
+        themeButton.addEventListener('click', () => {
+            document.body.classList.toggle('night-mode');
+            if (document.body.classList.contains('night-mode')) {
+                themeButton.textContent = "☀️ Day Mode";
+            } else {
+                themeButton.textContent = "🌙 Night Mode";
+            }
+        });
 
         // Update high score display
         document.getElementById('highScore').textContent = gameState.highScore;
@@ -411,4 +457,3 @@
     </script>
 </body>
 </html>
-i
